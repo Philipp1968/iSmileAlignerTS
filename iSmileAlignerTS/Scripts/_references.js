@@ -1,6 +1,6 @@
-﻿/// <reference path="jquery-3.5.1.js" />
+﻿/// <reference path="jquery-3.7.1.js" />
+/// <reference path="jquery-ui-1-14.1.js jquery-ui-1.14.1.js" />
 /// <autosync enabled="true" />
-/// <reference path="jquery-ui-1.12.1.js" />
 /// <reference path="respond.min.js" />
 /// <reference path="respond.matchmedia.addlistener.min.js" />
 /// <reference path="modernizr-2.8.3.js" />
