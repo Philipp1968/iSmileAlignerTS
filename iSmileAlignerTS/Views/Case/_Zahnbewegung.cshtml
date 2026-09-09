@@ -1,0 +1,288 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+<div class="form-group">
+    <div class="row">
+        @Html.Label("Zahnbewegung und Stripping:", new { @class = "col-md-2 control-label" })
+        @Html.Label("Oberkiefer", new { @class = "col-md-4" })
+        @Html.Label("Unterkiefer", new { @class = "col-md-4" })
+        @Html.Label("Kommentar", new { @class = "col-md-4" })
+    </div>
+
+    @if (@ViewBag.isAdmin == true)
+    {
+        <div class="row">
+            @Html.Label("Step 1", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step01OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step01UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step01Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 2", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step02OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step02UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step02Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 3", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step03OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step03UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step03Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 4", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step04OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step04UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step04Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 5", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step05OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step05UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step05Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 6", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step06OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step06UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step06Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 7", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step07OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step07UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step07Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 8", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step08OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step08UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step08Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 9", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step09OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step09UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step09Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 10", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step10OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step10UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step10Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 11", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step11OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step11UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step11Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 12", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step12OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Step12UK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(m => m.Step12Kommentar, new { style = "width:170px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Zeitplan", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Zeitplan, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Privatkommentar", new { @class = "col-md-2 control-label" })
+            <div class="col-md-6">
+                @Html.TextAreaFor(m => m.PrivatKommentar, new { rows = 2, style = "width:480px;" })
+            </div>
+        </div>
+    }
+    else if (Model.CaseState >= iSmileAlignerTS.Models.CaseStates.PlanungBezahlt)
+    {
+        <div class="row">
+            @Html.Label("Step 1", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step01OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step01UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 2", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step02OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step02UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 3", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step03OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step03UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 4", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step04OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step04UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 5", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step05OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step05UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 6", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step06OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step06UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 7", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step07OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step07UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 8", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step08OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step08UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 9", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step09OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step09UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 10", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step10OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step10UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 11", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step11OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step11UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Step 12", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step12OK, new { style = "width:340px;" })
+            </div>
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.Step12UK, new { style = "width:340px;" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Zeitplan", new { @class = "col-md-2 control-label" })
+            <div class="col-md-6">
+                @Html.DisplayFor(m => m.Zeitplan, new { style = "width:340;" })
+            </div>
+        </div>
+    }
+
+</div>

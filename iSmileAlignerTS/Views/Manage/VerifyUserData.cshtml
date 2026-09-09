@@ -1,0 +1,84 @@
+﻿@using iSmileAlignerTS.Models
+
+@model IEnumerable<iSmileAlignerTS.Models.VerifyUserDataViewModel>
+
+@{
+    ViewBag.Title = "Ärzte freischalten";
+}
+
+<h2>@ViewBag.Title</h2>
+<p> &nbsp; </p>
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="verifyUserData">
+            @using (Html.BeginForm("VerifyUserData", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", autocomplete = "off" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            Person
+                        </th>
+                        <th>
+                            Adresse
+                        </th>
+                        <th>
+                            Kontakt
+                        </th>
+                        <th>
+                            Änderung zuletzt
+                        </th>
+                        <th>
+                            Aktion
+                        </th>
+                    </tr>
+
+                    @foreach (var itemElement in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(item => itemElement.Salutation) &nbsp; @Html.DisplayFor(x => itemElement.Titel)<br />
+                                @Html.DisplayFor(item => itemElement.Firstname) &nbsp; @Html.DisplayFor(item => itemElement.Lastname)<br />
+                                @Html.DisplayFor(item => itemElement.BirthDate)<br />
+                                @Html.DisplayFor(item => itemElement.MedicalField)<br />
+                                @Html.DisplayFor(item => itemElement.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(item => itemElement.DocShortName)<br />
+                                @Html.DisplayFor(item => itemElement.Praxis)<br />
+                                @Html.DisplayFor(item => itemElement.Address)<br />
+                                @Html.DisplayFor(item => itemElement.ZIP) &nbsp; @Html.DisplayFor(modelItem => itemElement.City)<br />
+                                @Html.DisplayFor(item => itemElement.Country) 
+                            </td>
+                            <td>
+                                Tel: @Html.DisplayFor(item => itemElement.Phone)<br />
+                                Mobil: @Html.DisplayFor(item => itemElement.MobilPhone)<br />
+                                Fax: @Html.DisplayFor(item => itemElement.Fax)<br />
+                                Web: @Html.DisplayFor(item => itemElement.WebURL)<br />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(item => itemElement.NeedVerifyDate)
+                            </td>
+                            <td>
+                                <button type="submit" name="btnOK" value="@itemElement.UserID" class="btn">OK</button> <br />
+                                <button type="submit" name="btnDEL" value="@itemElement.UserID" class="btn">Löschen</button>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+        </section>
+    </div>
+</div>
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

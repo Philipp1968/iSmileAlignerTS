@@ -1,0 +1,19 @@
+﻿@{
+    string en = MvcApplication.CurrentCulture;
+
+    if (string.IsNullOrWhiteSpace(en))
+    {
+        en = "en";
+    }
+
+    string country = en.Substring(0, 2).ToLower();
+    
+    if (country != "de")
+    {
+        Layout = "~/Views/Shared/en/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}

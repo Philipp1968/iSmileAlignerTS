@@ -1,0 +1,44 @@
+﻿@using iSmileAlignerTS.Models
+
+@model IEnumerable<iSmileAlignerTS.Models.SetUserPasswordViewModel>
+
+@{
+    ViewBag.Title = "Benutzer löschen";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("DeleteUser", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Konto", new { @class = "col-md-3" })
+            @Html.Label("Person", new { @class = "col-md-3" })
+            @Html.Label("Löschen", new { @class = "col-md-3" })
+        </div>
+
+        @foreach (var itemElement in Model)
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.DisplayFor(item => itemElement.Email)
+                </div>
+
+                <div class="col-md-3">
+                    @Html.DisplayFor(item => itemElement.Firstname) &nbsp; @Html.DisplayFor(item => itemElement.Lastname)
+                </div>
+
+                <div class="col-md-1">
+                    <button type="submit" name="delUserButton" value="@itemElement.UserID" class="btn">Löschen</button>
+                </div>
+            </div>
+        }
+
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

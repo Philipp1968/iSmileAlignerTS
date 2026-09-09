@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Kein Zugriff";
+}
+
+<h1 class="text-danger">@ViewBag.Title</h1>
+
+<p> &nbsp; </p>
+
+<div class="jumbotron">
+    <p class="lead">Sie haben eine Funktion aufgerufen für die Sie keine Berechtigung besitzen.</p>
+</div>
+
+@if (ViewBag.ErrorExceptionString != null && ViewBag.ErrorExceptionString != "")
+{
+    <hr />
+    <p>
+        <error>
+            Fehler:
+        </error>
+    </p>
+    <p>
+        <error>
+            @ViewBag.ErrorExceptionString
+        </error>
+    </p>
+}
+
+
+@if (ViewBag.LogString != null && ViewBag.LogString != "")
+{
+    <hr />
+    <p>Infos</p>
+    <p>
+        <code>
+            @ViewBag.LogString
+        </code>
+    </p>
+}

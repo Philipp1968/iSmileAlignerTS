@@ -1,0 +1,174 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+@{
+    ViewBag.Title = "iSmile Behandlungsplan";
+}
+
+<h2>@ViewBag.Title</h2>
+<p> &nbsp; </p>
+
+@using (Html.BeginForm("EditCase", "Case", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.CaseId);
+    @Html.HiddenFor(m => m.RowVersion);
+    @Html.HiddenFor(m => m.CaseNumber);
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    if (ViewBag.ValidationErrors != null)
+    {
+        <div class="form-group">
+            <div class="row">
+                @Html.Label("Eingabeproblem", new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    <p>
+                        <b>
+                            <font color="red">
+                                @ViewBag.ValidationErrors
+                            </font>
+                        </b>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Arzt:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.DoctorName, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    @Html.Partial("_Patient")
+
+    @Html.Partial("_Oberkiefer")
+
+    @Html.Partial("_Unterkiefer")
+
+    @Html.Partial("_Nachrichten")
+
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Dialog:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.CurrentMessage, new { @cols = 120, @rows = 4, htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" name="sendMsgButton" class="btn" value="Senden" />
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("_Zusatzbehandlungen")
+
+    <hr />
+
+    @Html.Partial("_Bilder")
+
+    <hr />
+
+    @Html.Partial("_Zahnbewegung")
+
+    <hr />
+
+    if (Model.ShowCanvasModels)
+    {
+        @Html.Partial("_Behandlungsplan1")
+    }
+    else
+    {
+        @Html.Partial("_Behandlungsplan1s")
+    }
+
+    <hr />
+
+    @Html.Partial("_Behandlungsplan2")
+
+    <hr />
+
+    @Html.Partial("_SonstigeBilder")
+
+    <hr />
+
+    @Html.Partial("_Status")
+
+    <hr />
+
+    @Html.Partial("_KostenBisher")
+
+    <hr />
+
+    if (ViewBag.isDoctor == true || ViewBag.isAdmin == true)
+    {
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" name="submitButton" class="btn btn-primary" value="Speichern" style="background-color: #ca0d89" />
+            </div>
+        </div>
+    }
+
+    @*if (ViewBag.isAdmin == true)
+        {
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    @Html.ActionLink("Dateiübersicht", "ViewCaseFiles", new { id = Model.CaseId })
+                </div>
+            </div>
+        }*@
+
+    if (ViewBag.isDoctor == true)
+    {
+        <hr />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-4">
+                @Html.ActionLink("Dateiübersicht", "ViewCaseFiles", new { id = Model.CaseId })
+            </div>
+        </div>
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/app3d")
+
+    @*
+        <script type="text/javascript" src="~/Scripts/jsc3d.js"></script>
+        <script type="text/javascript" src="~/Scripts/jsc3d.webgl.js"></script>
+        <script type="text/javascript" src="~/Scripts/jsc3d.touch.js"></script>
+        <script type="text/javascript">
+
+            var divElements = document.getElementsByName('jsc3dcv');
+            if (divElements != null && divElements.length > 0) {
+                for (var i = 0; i < divElements.length; i += 1) {
+                    var el = divElements[i];
+                    var urlInfo = el.getAttribute('urltoload');
+                    if (urlInfo != null && urlInfo != "") {
+                        var viewer = new JSC3D.Viewer(el);
+                        viewer.setParameter('SceneUrl', urlInfo);
+                        viewer.setParameter('ModelColor', '#CAA638');
+                        viewer.setParameter('BackgroundColor1', '#E5D7BA');
+                        viewer.setParameter('BackgroundColor2', '#383840');
+                        viewer.setParameter('RenderMode', 'flat');
+                        viewer.setParameter('MipMapping', JSC3D.PlatformInfo.supportWebGL ? 'off' : 'on');
+                        viewer.setParameter('Renderer', 'webgl');
+                        viewer.init();
+                        viewer.update();
+                    }
+                }
+            }
+
+
+        </script>
+    *@
+
+}

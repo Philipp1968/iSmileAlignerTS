@@ -1,0 +1,46 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+@{ var zeigeBezahlen = 0; }
+
+<div class="form-group">
+    <div class="row">
+        @Html.Label("Kostenübersicht:", new { @class = "col-md-2 control-label" })
+    </div>
+    @foreach (iSmileAlignerTS.Models.CaseCart c in Model.Carts)
+    {
+        <div class="row">
+            @*
+    <div class="col-md-offset-2 col-md-1">
+        @c.CartNumber.ToString("#0")
+    </div>
+            *@
+            <div class="col-md-offset-2 col-md-1">
+                @c.Amount.ToString("#0")
+            </div>
+            <div class="col-md-5">
+                @c.WareText
+            </div>
+            <div class="col-md-1">
+                @if (@c.isPayed == false)
+                {
+                    <b>offen</b>
+                    zeigeBezahlen = zeigeBezahlen + 1;
+                }
+                else
+                {
+                    <b>bez.</b>
+                }
+            </div>
+            <div class="col-md-2">
+                @c.Currency &nbsp; @c.Price.ToString("#0.00")
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-offset-2 col-md-4">
+            @Html.ActionLink("Bezahlen", "PayCaseCart", "Payment", new { id = Model.CaseNumber }, new { @class = "btn btn-primary", @style = "background-color:#ca0d89" })
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,67 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-3">
+            @if (@Model.PortraitThumbId != 0 && @Model.PortraitFotoId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.PortraitFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.PortraitThumbId })" title="@Model.PortraitFotoName" />
+                </a>
+                <br />
+            }
+            else
+            {
+                <img src="~/Images/portrait1.png" title="Portrait" />
+            }
+            @Html.TextBoxFor(m => m.PortraitFotoBin, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.PortraitFotoBin, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-3">
+            @if (@Model.PortraitSmilingThumbId != 0 && @Model.PortraitSmilingFotoId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.PortraitSmilingFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.PortraitSmilingThumbId })" title="@Model.PortraitSmilingFotoName" />
+                </a>
+                <br />
+            }
+            else
+            {
+                <img src="~/Images/portraitsmiling1.png" title="Portrait lächelnd" />
+            }
+            @Html.TextBoxFor(m => m.PortraitSmilingFotoBin, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.PortraitSmilingFotoBin, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-3">
+            @if (@Model.ProfilThumbId != 0 && Model.ProfilFotoId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.ProfilFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.ProfilThumbId })" title="@Model.ProfilFotoName" />
+                </a>
+                <br />
+            }
+            else
+            {
+                <img src="~/Images/profil1.png" title="Profil" />
+                <br />
+            }
+            @Html.TextBoxFor(m => m.ProfilFotoBin, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ProfilFotoBin, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-3">
+            @if (@Model.ProfilSmilingThumbId != 0 && Model.ProfilSmilingFotoId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.ProfilSmilingFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.ProfilSmilingThumbId })" title="@Model.ProfilSmilingFotoName" />
+                </a>
+                <br />
+            }
+            else
+            {
+                <img src="~/Images/profilsmiling1.png" title="Portrait lächelnd" />
+            }
+            @Html.TextBoxFor(m => m.ProfilSmilingFotoBin, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.ProfilSmilingFotoBin, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>

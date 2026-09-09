@@ -1,0 +1,53 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+<div class="form-group">
+    <div class="row">
+        @Html.Label("Röntgen:", new { @class = "col-md-2 control-label" })
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @if (Model.PanoFotoId != 0 && Model.PanoThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = Model.PanoFotoId  })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = Model.PanoThumbId})" title="@Model.PanoFotoName" />
+                </a>
+            }
+            else
+            {
+                @*
+                    <img src="~/Images/panoroentgensymbol1.png" width="220" title="Pano" />
+                *@
+                <img src="~/Images/panoblauvoll1.png" width="220" title="Pano" />
+            }
+            @Html.TextBoxFor(m => m.PanoFotoBin, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.PanoFotoBin, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-6">
+            @if (Model.DistXFotoId != 0 && Model.DistXThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = Model.DistXFotoId  })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = Model.DistXThumbId })" title="@Model.DistXFotoName" />
+                </a>
+            }
+            else
+            {
+                @*
+                    <img src="~/Images/fernroentgensymbol1.png" width="220" title="Fernröntgen" />
+                *@
+                <img src="~/Images/fernxrayvoll1.png" width="220" title="Fernröntgen" />
+            }
+            @Html.TextBoxFor(m => m.DistXFotoBin, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.DistXFotoBin, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="row">
+        @Html.Label("Zusätzliches Bild:", new { @class = "col-md-2 control-label" })
+        <div class="col-md-8">
+            @Html.TextBoxFor(m => m.AddFotoBin, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.AddFotoBin, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>

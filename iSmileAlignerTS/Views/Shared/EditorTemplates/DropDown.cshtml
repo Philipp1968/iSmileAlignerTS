@@ -1,0 +1,34 @@
+﻿@model String
+
+@{var FeldName = ViewData.TemplateInfo.HtmlFieldPrefix;}
+
+@if (FeldName == "Salutation")
+{
+    @Html.DropDownListFor(model => model, new SelectList(new[] { "Hr.", "Fr." }, Model))
+}
+
+@if (FeldName == "Titel")
+{
+    @Html.DropDownListFor(model => model, new SelectList(new[] { "", "Dr.", "Dr.med.dent", "Dr.med.univ.", "Prim.Dr.", "Prim.Dr.", "Prof.Dr.", "DI.", "Dr.Dipl-Ing." }, Model))
+}
+
+@if (FeldName == "MedicalField")
+{
+    @Html.DropDownListFor(model => model, new SelectList(new[] { "Zahnarzt", "Kieferorthopädie", "Klinik" }, Model))
+}
+
+@if (FeldName == "Country")
+{
+    @Html.DropDownListFor(model => model, new SelectList(
+        new List<Object> {
+            new { value="AT", text="Österreich" }, 
+            new { value="DE", text="Deutschland"  }, 
+            new { value="CZ", text="Tschechien"  },
+            new { value="SK", text="Slowakei"  },
+            new { value="HU", text="Ungarn" }, 
+            new { value="SI", text="Slowenien"  },
+            new { value="IT", text="Italien"  }, 
+            new { value="CH", text="Schweiz"  }, 
+            new { value="LI", text="Liechtenstein" }
+        }, "value", "text", Model))
+}

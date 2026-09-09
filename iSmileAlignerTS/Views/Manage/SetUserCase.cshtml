@@ -1,0 +1,88 @@
+﻿@using iSmileAlignerTS.Models
+
+@model CustomerCasesView
+
+@{
+    ViewBag.Title = "Fälle zu Kunden zuordnen";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("SetUserCase", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Suche", new { @class = "col-md-2 control-label" })
+            @Html.EditorFor(model => model.UserSearch, new { @class = "form-control" })
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" name="userSearchButton" class="btn btn-primary" value="Suchen" style="background-color:#ca0d89" />
+                &nbsp;
+                <input type="submit" name="userResetButton" class="btn" value="Alle" />
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Kunden/Patienten", new { @class = "col-md-2 control-label" })
+            @Html.DropDownListFor(model => model.UserId, Model.Users, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Suche", new { @class = "col-md-2 control-label" })
+            @Html.EditorFor(model => model.CasesSearch, new { @class = "form-control" })
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <input type="submit" name="caseSearchButton" class="btn btn-primary" value="Suchen" style="background-color:#ca0d89" />
+                &nbsp;
+                <input type="submit" name="caseResetButton" class="btn" value="Alle" />
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Fälle", new { @class = "col-md-2 control-label" })
+            @Html.DropDownListFor(model => model.CasesId, Model.Cases, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Zugewiesen", new { @class = "col-md-2 control-label" })
+            @Html.DropDownListFor(model => model.AssignId, Model.Assigns, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <hr />
+    
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Durchführen", new { @class = "col-md-2 control-label" })
+            @Html.EditorFor(model => model.DoAktion, new { @class = "form-control" })
+            <div class="col-md-8">
+                <p class="form-control-static">
+                    Bitte anklicken und dann entweder verbinden und trennen. Dient dazu nicht versehentlich Patient und Fall zu behandeln.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <button type="submit" name="assignCaseButton" class="btn">Kunde und Fall verbinden</button>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" name="cutCaseButton" class="btn">Zugewiesen voneinander trennen</button>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

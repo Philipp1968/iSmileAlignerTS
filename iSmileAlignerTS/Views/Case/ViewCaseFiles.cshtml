@@ -1,0 +1,122 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+@{
+    ViewBag.Title = "Dateiübersicht";
+}
+
+<h2>@ViewBag.Title</h2>
+<p> &nbsp; </p>
+
+@using (Html.BeginForm("ViewCaseFiles", "Case", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    if (ViewBag.ValidationErrors != null)
+    {
+        <div class="form-group">
+            <div class="row">
+                @Html.Label("Eingabeproblem", new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    <p>
+                        <b>
+                            <font color="red">
+                                @ViewBag.ValidationErrors
+                            </font>
+                        </b>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Arzt:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DisplayFor(m => m.DoctorName, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    if (Model.Files != null && Model.Files.Count() > 0)
+    {
+        <div class="form-group">
+            <div class="row">
+                @Html.Label("Bilder:", new { @class = "col-md-2 control-label" })
+            </div>
+            @{
+                var picCount = 1;
+                var rowCount = 0;
+            }
+            @foreach (var item in Model.Files)
+            {
+                if (rowCount == 0)
+                {
+                    @Html.Raw("<div class=\"row\">")
+                }
+
+                <div class="col-md-3" style="border-color=black">
+                    @Html.Label("Bild " + picCount.ToString("#0")) <br />
+                    <a href="@Url.Action("OpenPicture", "Case", new { id = item.ImageId  })" target="_blank">
+                        @if (item.ThumbId != 0)
+                        {
+                            <img src="@Url.Action("OpenPicture", "Case", new { id = item.ThumbId })" title="@item.Filename" class="img-responsive" />
+                        }
+                        else
+                        {
+                            <img src="~/Images/any.png" title="@item.Filename" />
+                        }
+                    </a>
+                    <br />
+                    <a href="@Url.Action("OpenPictureSaveAs", "Case", new { id = item.ImageId  })" target="_blank">
+                        @item.Filename
+                    </a>
+                    <br />
+                    @item.FileDate.ToString("u")
+                    <br />
+                    @if (ViewBag.isAdmin == true)
+                    {
+                        <button type="submit" name="delButton" value="@item.ImageId,@item.ThumbId" class="btn">Löschen</button>
+                    }
+                </div>
+
+                picCount += 1;
+                rowCount += 1;
+
+                if (rowCount == 4)
+                {
+                    rowCount = 0;
+                    @Html.Raw("</div>")
+                }
+            }
+        </div>
+
+        <hr />
+    }
+
+    <div class="form-group">
+        @Html.Label("Zusätzliche Datei:", new { @class = "col-md-2 control-label" })
+        <div class="col-md-8">
+            @Html.TextBoxFor(m => m.AddAnyFileBin, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.AddAnyFileBin, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" name="addAnyFileButton" class="btn btn-default" value="Hinzufügen" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-4">
+            @Html.ActionLink("zurück zum Fall", "EditCase", new { id = Model.CaseNumber })
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

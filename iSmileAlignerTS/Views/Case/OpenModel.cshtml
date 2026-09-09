@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="@System.Globalization.CultureInfo.CurrentUICulture.Name">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/favicon.ico" />
+    <title>@ViewBag.Title iSmileAligner Partner und Kunden-Webdialog</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        #AnimatediSmile {
+            height: 103px;
+            width: 103px;
+            background: url("~/Images/ismile_animate.gif");
+            margin: auto;
+        }
+
+            #AnimatediSmile:hover {
+                cursor: pointer;
+                background: url("~/Images/ismile_animate.gif");
+            }
+    </style>
+</head>
+<body>
+    <div class="container body-content">
+        <div>
+            <canvas id="jsc3dcvid" name="jsc3dcv" width=480 height=480 urltoload="@Url.Action("OpenPicture", "Case", new { id = @ViewBag.ModelIdString })">
+                Ihr Browser ist leider nicht in der Lage das Model anzuzeigen.
+            </canvas>
+        </div>
+
+        <hr />
+        <footer>
+            <p class="small">(C) @DateTime.Now.Year iSmile</p>
+        </footer>
+    </div>
+
+    <script language="javascript" type="text/javascript">
+
+        var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+        if (width > height) width = height;
+        if (height > width) height = width;
+
+        if (width < 480 || height < 480) {
+            width = 480;
+            height = 480;
+        }
+
+        //        $("#jsc3dcv").width = width;
+        //        $("#jsc3dcv").height = height;
+        //        $("#jsc3dcv").width = 960;
+        //        $("#jsc3dcv").height = 960;
+        document.getElementById('jsc3dcvid').width = width;
+        document.getElementById('jsc3dcvid').height = height;
+        document.getElementById('jsc3dcvid').style.width = width;
+        document.getElementById('jsc3dcvid').style.height = height;
+
+    </script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/app3d")
+
+</body>
+</html>
+
+<script language="javascript" type="text/javascript">
+
+    $(document).ready(function () {
+    });
+
+</script>

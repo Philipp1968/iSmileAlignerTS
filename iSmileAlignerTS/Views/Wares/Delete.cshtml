@@ -1,0 +1,102 @@
+﻿@model iSmileAlignerTS.Models.Wares
+
+@{
+    ViewBag.Title = "Löschen";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Möchten Sie den Artikel wirklich löschen?</h3>
+<div>
+    <h4>Wares</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WareNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WareNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Longtext)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Longtext)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceDoc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceDoc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PricePat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PricePat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Currency)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Currency)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddInfoText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddInfoText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isRequestQuote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isRequestQuote)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InShop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InShop)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Zurück zur Übersicht", "Index")
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <p>
+                    Bitte beachten Sie daß nur Artikel gelöscht werden können, die noch in keinem Verkauf oder Fall aufgeführt sind!
+                </p>
+            </div>
+        </div>
+    }
+</div>

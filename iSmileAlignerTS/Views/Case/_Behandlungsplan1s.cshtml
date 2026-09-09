@@ -1,0 +1,296 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-6">
+            @if (@Model.ModelBeforeFrontFotoId != 0 && @Model.ModelBeforeFrontThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelBeforeFrontFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelBeforeFrontThumbId })" title="@Model.ModelBeforeFrontFotoName" />
+                </a>
+                <br />
+            }
+            else
+            {
+                <img src="~/Images/beforefront.png" title="Model davor" />
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelBeforeFrontFotoBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelBeforeFrontFotoBin, "", new { @class = "text-danger" })
+            }
+        </div>
+        <div class="col-md-6">
+            @if (@Model.ModelAfterFrontFotoId != 0 && @Model.ModelAfterFrontThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelAfterFrontFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelAfterFrontThumbId })" title="@Model.ModelAfterFrontFotoName" />
+                </a>
+                <br />
+            }
+            else
+            {
+                <img src="~/Images/afterfront.png" title="Model danach" />
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelAfterFrontFotoBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelAfterFrontFotoBin, "", new { @class = "text-danger" })
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            @if (@Model.ModelBeforeRightFotoId != 0 && @Model.ModelBeforeRightThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelBeforeRightFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelBeforeRightThumbId })" title="@Model.ModelBeforeRightFotoName" />
+                </a>
+                <br />
+            }
+            else
+            {
+                <img src="~/Images/rightbefore.png" title="Model rechts, davor" />
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelBeforeRightFotoBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelBeforeRightFotoBin, "", new { @class = "text-danger" })
+            }
+        </div>
+        <div class="col-md-5">
+            @if (@Model.ModelAfterRightFotoId != 0 && @Model.ModelAfterRightThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelAfterRightFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelAfterRightThumbId })" title="@Model.ModelAfterRightFotoName" />
+                </a>
+                <br />
+            }
+            else
+            {
+                <img src="~/Images/rightafter.png" title="Model rechts, danach" />
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelAfterRightFotoBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelAfterRightFotoBin, "", new { @class = "text-danger" })
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            @if (@Model.ModelBeforeOKUKFotoId != 0 && @Model.ModelBeforeOKUKThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelBeforeOKUKFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelBeforeOKUKThumbId })" title="@Model.ModelBeforeOKUKFotoName" />
+                </a>
+                <br />
+            }
+            else
+            {
+                <img src="~/Images/beforeokuk.png" title="OK UK davor" />
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelBeforeOKUKFotoBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelBeforeOKUKFotoBin, "", new { @class = "text-danger" })
+            }
+        </div>
+        <div class="col-md-6">
+            @if (@Model.ModelAfterOKUKFotoId != 0 && @Model.ModelAfterOKUKThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelAfterOKUKFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelAfterOKUKThumbId })" title="@Model.ModelAfterOKUKFotoName" />
+                </a>
+                <br />
+            }
+            else
+            {
+                <img src="~/Images/afterokuk.png" title="OK UK danach" />
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelAfterOKUKFotoBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelAfterOKUKFotoBin, "", new { @class = "text-danger" })
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            @if (@Model.ModelMaxFotoId != 0 && @Model.ModelMaxThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelMaxFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelMaxThumbId })" title="@Model.ModelMaxFotoName" />
+                </a>
+            }
+            else
+            {
+                <img src="~/Images/maxview.png" title="Max. Ansicht" />
+            }
+            <br />
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelMaxFotoBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelMaxFotoBin, "", new { @class = "text-danger" })
+                <br />
+            }
+            @if (@Model.ModelMandFotoId != 0 && @Model.ModelMandThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelMandFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.ModelMandThumbId })" title="@Model.ModelMandFotoName" />
+                </a>
+            }
+            else
+            {
+                <img src="~/Images/mandview.png" title="Mand. Ansicht" />
+            }
+            <br />
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelMandFotoBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelMandFotoBin, "", new { @class = "text-danger" })
+            }
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Label("Model OK Vorher")
+        </div>
+        <div class="col-md-4">
+            @Html.Label("Model OK Nachher/Aktuell")
+        </div>
+        <div class="col-md-4">
+            @Html.Label("Model OK-UK Vorher")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @if (Model.ModelBeforeOKSltId != 0)
+            {
+                <a href="@Url.Action("OpenModel", "Case", new { id = @Model.ModelBeforeOKSltId })" target="_blank">
+                    <img src="~/Images/thumbmodel.png" />
+                </a>
+                <br />
+                if (Model.ModelBeforeOKSltName != null)
+                {
+                    @Model.ModelBeforeOKSltName
+                }
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelBeforeOKSltBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelBeforeOKSltBin, "", new { @class = "text-danger" })
+            }
+        </div>
+        <div class="col-md-4">
+            @if (Model.ModelAfterOKSltId != 0)
+            {
+                <a href="@Url.Action("OpenModel", "Case", new { id = @Model.ModelAfterOKSltId })" target="_blank">
+                    <img src="~/Images/thumbmodel.png" />
+                </a>
+                <br />
+                if (Model.ModelAfterOKSltName != null)
+                {
+                    @Model.ModelAfterOKSltName
+                }
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelAfterOKSltBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelAfterOKSltBin, "", new { @class = "text-danger" })
+            }
+        </div>
+        <div class="col-md-4">
+            @if (Model.ModelBeforeOKUKSltId != 0)
+            {
+                <a href="@Url.Action("OpenModel", "Case", new { id = @Model.ModelBeforeOKUKSltId })" target="_blank">
+                    <img src="~/Images/okukstlview.png" />
+                </a>
+                <br />
+                if (Model.ModelBeforeOKUKSltName != null)
+                {
+                    @Model.ModelBeforeOKUKSltName
+                }
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelBeforeOKUKSltBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelBeforeOKUKSltBin, "", new { @class = "text-danger" })
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Label("Model UK Vorher")
+        </div>
+        <div class="col-md-4">
+            @Html.Label("Model UK Nachher/Aktuell")
+        </div>
+        <div class="col-md-4">
+            @Html.Label("Model OK-UK Nachher/Aktuell")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @if (Model.ModelBeforeUKSltId != 0)
+            {
+                <a href="@Url.Action("OpenModel", "Case", new { id = @Model.ModelBeforeUKSltId })" target="_blank">
+                    <img src="~/Images/thumbmodel.png" />
+                </a>
+                <br />
+                if (Model.ModelBeforeUKSltName != null)
+                {
+                    @Model.ModelBeforeUKSltName
+                }
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelBeforeUKSltBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelBeforeUKSltBin, "", new { @class = "text-danger" })
+            }
+        </div>
+        <div class="col-md-4">
+            @if (Model.ModelAfterUKSltId != 0)
+            {
+                <a href="@Url.Action("OpenModel", "Case", new { id = @Model.ModelAfterUKSltId })" target="_blank">
+                    <img src="~/Images/thumbmodel.png" />
+                </a>
+                <br />
+                if (Model.ModelAfterUKSltName != null)
+                {
+                    @Model.ModelAfterUKSltName
+                }
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelAfterUKSltBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelAfterUKSltBin, "", new { @class = "text-danger" })
+            }
+        </div>
+        <div class="col-md-4">
+            @if (Model.ModelAfterOKUKSltId != 0)
+            {
+                <a href="@Url.Action("OpenModel", "Case", new { id = @Model.ModelAfterOKUKSltId })" target="_blank">
+                    <img src="~/Images/okukstlview.png" />
+                </a>
+                <br />
+                if (Model.ModelAfterOKUKSltName != null)
+                {
+                    @Model.ModelAfterOKUKSltName
+                }
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.ModelAfterOKUKSltBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.ModelAfterOKUKSltBin, "", new { @class = "text-danger" })
+            }
+        </div>
+    </div>
+</div>
+

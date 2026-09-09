@@ -1,0 +1,118 @@
+﻿@using iSmileAlignerTS.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>@ViewBag.Title</h2>
+<p> &nbsp; </p>
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", autocomplete = "off" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                if (ViewBag.ValidationErrors != null)
+                {
+                    <div class="form-group">
+                        <div class="row">
+                            @Html.Label("", "Input error", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-8">
+                                <p>
+                                    <b>
+                                        <font color="red">
+                                            @ViewBag.ValidationErrors
+                                        </font>
+                                    </b>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="form-group">
+                    <div class="row">
+                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(m => m.Email, new { @class = "col-md-4" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(m => m.Password, new { @class = "col-md-4" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-6">
+                            <input type="submit" value="Anmelden" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+                @* Diese Option aktivieren, nachdem Sie die Kontobestätigung für die Funktion zum Zurücksetzen des Kennworts aktiviert haben
+                    <p>
+                        @Html.ActionLink("Kennwort vergessen?", "ForgotPassword")
+                    </p>*@
+            }
+        </section>
+    </div>
+
+    @*
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    *@
+
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            <b>
+                Important information about website security and our security certificate!
+            </b>
+        </p>
+        <p>
+            <b>
+                You can access our website now through https adding point-to-point encryption between your browser
+                and our system. Instead of using http:// you can now access our website using https://.
+            </b>
+        </p>
+        <p>
+            We use a SSL certificate from the Certificate Authority (CA) CAcert <a href="http://www.cacert.org/" target="_blank">http://www.cacert.org</a> and this
+            needs the installation of the CAcert root certificates. These certificate are no less secure than any conventional web certificat! They are just not
+            included by default on Windows or OSX! Therefore you need to install these root certificates for your browser once.
+        </p>
+        <p>
+            You might get an alert from the browser about a possibly unsafe website access. Please install the CAcert certificates to remedy this situation. You
+            will find the certificates and help how to install them at <a href="https://www.cacert.org/index.php?id=3" target="_blank">http://www.cacert.org/index.php?id=3</a>.
+        </p>
+        <p>
+            If you are using windows you can easily run the windows installer from the CAcert website which will install the certificates on your system.
+        </p>
+        <p>
+            On OSX you will need to install the class 1 root certificate and the class 3 intermediate certificate for your browser.
+        </p>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

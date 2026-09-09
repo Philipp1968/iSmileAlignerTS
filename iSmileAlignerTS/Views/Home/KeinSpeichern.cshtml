@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Daten wurden nicht gespeichert.";
+}
+
+<h1 class="text-danger">@ViewBag.Title</h1>
+
+<p> &nbsp; </p>
+
+<div class="jumbotron">
+    <p class="lead">Sie haben Daten geändert aber das Speichern hat nicht funktioniert. Bitte wiederholen Sie
+    den Vorgang in einigen Minuten.</p>
+</div>
+
+@if (ViewBag.ErrorExceptionString != null && ViewBag.ErrorExceptionString != "")
+{
+    <hr />
+    <p>
+        <error>
+            Fehler:
+        </error>
+    </p>
+    <p>
+        <error>
+            @ViewBag.ErrorExceptionString
+        </error>
+    </p>
+}
+
+@if (ViewBag.LogString != null && ViewBag.LogString != "")
+{
+    <hr />
+    <p>Infos</p>
+    <p>
+        <code>
+            @ViewBag.LogString
+        </code>
+    </p>
+}

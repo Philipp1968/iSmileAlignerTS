@@ -1,0 +1,25 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-12">
+            @if (@Model.DataFotoId != 0 && @Model.DataThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = @Model.DataFotoId })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.DataThumbId })" title="@Model.DataFotoName" />
+                </a>
+                <br />
+            }
+            else
+            {
+                <img src="~/Images/datatable.png" title="Datenblatt" />
+                <br />
+            }
+            @if (@ViewBag.isAdmin == true)
+            {
+                @Html.TextBoxFor(m => m.DataFotoBin, new { type = "file" })
+                @Html.ValidationMessageFor(m => m.DataFotoBin, "", new { @class = "text-danger" })
+            }
+        </div>
+    </div>
+</div>

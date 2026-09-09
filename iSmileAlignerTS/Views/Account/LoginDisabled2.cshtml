@@ -1,0 +1,43 @@
+﻿@using iSmileAlignerTS.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Anmeldung derzeit deaktiviert!";
+}
+
+<h2>@ViewBag.Title</h2>
+<p> &nbsp; </p>
+
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", autocomplete = "off" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <p>
+                    <h4>
+                        In Kürze entsteht hier ein Portal für Patienten und Kunden von ts-dent
+                        um Zusatzprodukte rund um iSmile zu erwerben.
+                    </h4>
+                </p>
+                @* Diese Option aktivieren, nachdem Sie die Kontobestätigung für die Funktion zum Zurücksetzen des Kennworts aktiviert haben
+                    <p>
+                        @Html.ActionLink("Kennwort vergessen?", "ForgotPassword")
+                    </p>*@
+            }
+        </section>
+    </div>
+
+    @*
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    *@
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

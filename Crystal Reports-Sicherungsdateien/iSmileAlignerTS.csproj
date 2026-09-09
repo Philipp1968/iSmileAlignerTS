@@ -1,0 +1,1056 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{64957AFE-F982-45A1-BEE1-126B935B9DE0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>iSmileAlignerTS</RootNamespace>
+    <AssemblyName>iSmileAlignerTS</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="i18n, Version=2.1.10.0, Culture=neutral, PublicKeyToken=b54a7283d4bad1bb, processorArchitecture=MSIL">
+      <HintPath>..\packages\I18N.2.1.10\lib\net40\i18n.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="i18n.Domain, Version=2.1.10.0, Culture=neutral, PublicKeyToken=b54a7283d4bad1bb, processorArchitecture=MSIL">
+      <HintPath>..\packages\I18N.2.1.10\lib\net40\i18n.Domain.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="i18n.PostBuild">
+      <HintPath>..\packages\I18N.2.1.10\tools\i18n.PostBuild\i18n.PostBuild.exe</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.11.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.11\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.11.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.11\lib\itextsharp.xmlworker.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorPDF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorPDF2.2.0.0\lib\net40\RazorPDF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorPDF.Legacy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorPDF2.2.0.0\lib\net40\RazorPDF.Legacy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ISmileController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\WaresController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509161223372_InitialCreate.cs" />
+    <Compile Include="Migrations\201509161223372_InitialCreate.Designer.cs">
+      <DependentUpon>201509161223372_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509250033032_CasesText10k.cs" />
+    <Compile Include="Migrations\201509250033032_CasesText10k.Designer.cs">
+      <DependentUpon>201509250033032_CasesText10k.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510050706283_ThumbNail.cs" />
+    <Compile Include="Migrations\201510050706283_ThumbNail.Designer.cs">
+      <DependentUpon>201510050706283_ThumbNail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510060750215_Zahlung.cs" />
+    <Compile Include="Migrations\201510060750215_Zahlung.Designer.cs">
+      <DependentUpon>201510060750215_Zahlung.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510191121033_m20151019.cs" />
+    <Compile Include="Migrations\201510191121033_m20151019.Designer.cs">
+      <DependentUpon>201510191121033_m20151019.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510191159597_m20151019-2.cs" />
+    <Compile Include="Migrations\201510191159597_m20151019-2.Designer.cs">
+      <DependentUpon>201510191159597_m20151019-2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510220948091_CaseNumberStrLonger.cs" />
+    <Compile Include="Migrations\201510220948091_CaseNumberStrLonger.Designer.cs">
+      <DependentUpon>201510220948091_CaseNumberStrLonger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510291409536_m20151029-1.cs" />
+    <Compile Include="Migrations\201510291409536_m20151029-1.Designer.cs">
+      <DependentUpon>201510291409536_m20151029-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511030908531_m20151103idx.cs" />
+    <Compile Include="Migrations\201511030908531_m20151103idx.Designer.cs">
+      <DependentUpon>201511030908531_m20151103idx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511061051166_m20151106-1.cs" />
+    <Compile Include="Migrations\201511061051166_m20151106-1.Designer.cs">
+      <DependentUpon>201511061051166_m20151106-1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512010812307_m20151201.cs" />
+    <Compile Include="Migrations\201512010812307_m20151201.Designer.cs">
+      <DependentUpon>201512010812307_m20151201.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512011030515_m20151202.cs" />
+    <Compile Include="Migrations\201512011030515_m20151202.Designer.cs">
+      <DependentUpon>201512011030515_m20151202.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601111407237_m20160111.cs" />
+    <Compile Include="Migrations\201601111407237_m20160111.Designer.cs">
+      <DependentUpon>201601111407237_m20160111.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602031045450_m20160203.cs" />
+    <Compile Include="Migrations\201602031045450_m20160203.Designer.cs">
+      <DependentUpon>201602031045450_m20160203.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602041123110_m20160204.cs" />
+    <Compile Include="Migrations\201602041123110_m20160204.Designer.cs">
+      <DependentUpon>201602041123110_m20160204.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602051238188_m20160205.cs" />
+    <Compile Include="Migrations\201602051238188_m20160205.Designer.cs">
+      <DependentUpon>201602051238188_m20160205.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602080202444_m20160208.cs" />
+    <Compile Include="Migrations\201602080202444_m20160208.Designer.cs">
+      <DependentUpon>201602080202444_m20160208.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602081053322_m20160209.cs" />
+    <Compile Include="Migrations\201602081053322_m20160209.Designer.cs">
+      <DependentUpon>201602081053322_m20160209.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602091017044_m20160210.cs" />
+    <Compile Include="Migrations\201602091017044_m20160210.Designer.cs">
+      <DependentUpon>201602091017044_m20160210.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602100813570_m201602101.cs" />
+    <Compile Include="Migrations\201602100813570_m201602101.Designer.cs">
+      <DependentUpon>201602100813570_m201602101.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602101015480_m201602102.cs" />
+    <Compile Include="Migrations\201602101015480_m201602102.Designer.cs">
+      <DependentUpon>201602101015480_m201602102.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602101053369_m201602103.cs" />
+    <Compile Include="Migrations\201602101053369_m201602103.Designer.cs">
+      <DependentUpon>201602101053369_m201602103.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602102016366_m201602106.cs" />
+    <Compile Include="Migrations\201602102016366_m201602106.Designer.cs">
+      <DependentUpon>201602102016366_m201602106.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602110821086_m20160211.cs" />
+    <Compile Include="Migrations\201602110821086_m20160211.Designer.cs">
+      <DependentUpon>201602110821086_m20160211.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602160851498_m20160216.cs" />
+    <Compile Include="Migrations\201602160851498_m20160216.Designer.cs">
+      <DependentUpon>201602160851498_m20160216.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602180942289_m20160218.cs" />
+    <Compile Include="Migrations\201602180942289_m20160218.Designer.cs">
+      <DependentUpon>201602180942289_m20160218.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602260752433_m20160226.cs" />
+    <Compile Include="Migrations\201602260752433_m20160226.Designer.cs">
+      <DependentUpon>201602260752433_m20160226.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602260758129_m201602261.cs" />
+    <Compile Include="Migrations\201602260758129_m201602261.Designer.cs">
+      <DependentUpon>201602260758129_m201602261.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604031730394_m20160403.cs" />
+    <Compile Include="Migrations\201604031730394_m20160403.Designer.cs">
+      <DependentUpon>201604031730394_m20160403.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604051019424_m20160405.cs" />
+    <Compile Include="Migrations\201604051019424_m20160405.Designer.cs">
+      <DependentUpon>201604051019424_m20160405.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604060550459_m20160406.cs" />
+    <Compile Include="Migrations\201604060550459_m20160406.Designer.cs">
+      <DependentUpon>201604060550459_m20160406.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604060620044_m20160407.cs" />
+    <Compile Include="Migrations\201604060620044_m20160407.Designer.cs">
+      <DependentUpon>201604060620044_m20160407.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604121344481_m20160412.cs" />
+    <Compile Include="Migrations\201604121344481_m20160412.Designer.cs">
+      <DependentUpon>201604121344481_m20160412.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605181024408_20160518.cs" />
+    <Compile Include="Migrations\201605181024408_20160518.Designer.cs">
+      <DependentUpon>201605181024408_20160518.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605301211438_m20160529.cs" />
+    <Compile Include="Migrations\201605301211438_m20160529.Designer.cs">
+      <DependentUpon>201605301211438_m20160529.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609280725311_m20160927.cs" />
+    <Compile Include="Migrations\201609280725311_m20160927.Designer.cs">
+      <DependentUpon>201609280725311_m20160927.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711221138430_m20171122attachment.cs" />
+    <Compile Include="Migrations\201711221138430_m20171122attachment.Designer.cs">
+      <DependentUpon>201711221138430_m20171122attachment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802121011166_m20180212.cs" />
+    <Compile Include="Migrations\201802121011166_m20180212.Designer.cs">
+      <DependentUpon>201802121011166_m20180212.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CaseCart.cs" />
+    <Compile Include="Models\CaseFiles.cs" />
+    <Compile Include="Models\CaseFileType.cs" />
+    <Compile Include="Models\Cases.cs" />
+    <Compile Include="Models\CaseStates.cs" />
+    <Compile Include="Models\CaseViewModels.cs" />
+    <Compile Include="Models\CustomerCases.cs" />
+    <Compile Include="Models\DaySerial.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\Journal.cs" />
+    <Compile Include="Models\Laender.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Messages.cs" />
+    <Compile Include="Models\Payment.cs" />
+    <Compile Include="Models\Settings.cs" />
+    <Compile Include="Models\Wares.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\BehandlungsPlan1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BehandlungsPlan1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\DeliveryReport1.cs">
+      <DependentUpon>DeliveryReport1.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\InvoiceReport1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvoiceReport1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="Validation\FileTypes.cs" />
+    <Compile Include="Validation\MaxFileSize.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\anyfile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\any3sz.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\best0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\best1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\best2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\dateisymbol.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\fernroentgensymbol1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\fernxraylinie1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\fernxrayvoll1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\idshead.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ismile-word.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ismilesensorscreenshotbeige.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\kontakt2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\modelsymbol.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\okukstlview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\panoblaulinie1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\panoblauvoll1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\panoroentgensymbol1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\portrait1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\portraitsmiling1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\profil1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\profilsmiling1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\sensor1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\sensor2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\theramon.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\welcomeimage2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\zahnbewegung.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="readme.txt" />
+    <Content Include="Scripts\app.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\app3d.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jsc3d.3ds.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\jsc3d.console.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\jsc3d.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\jsc3d.touch.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\jsc3d.webgl.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\jsc3d_ie.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Lokal.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\anypdf.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\anystl.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ismile-logo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ismile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ismile_static.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\model.stl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\model2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ktoolcav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ktoolcor">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\PublishProfiles\doctors.thinortho.com.pubxml" />
+    <None Include="Properties\PublishProfiles\iSmileAlignerTS.pubxml" />
+    <Content Include="Images\afterfront.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\afterokuk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\any.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\beforefront.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\beforeokuk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\bzahn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\datatable.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\fall-1-nachher.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\fall-1-vorher.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\fall-2-nachher.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\fall-2-vorher.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\fall-3-nachher.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\fall-3-vorher.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\idee1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ismilefav.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ismile_animate.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\isnoreibiteismile.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\kontakt1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\logoww4.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\mandview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\maxview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\p1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\p2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\p3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\p4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\p5.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\p6.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\p7.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\p8.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\p9.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\portrait.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\portraitsmiling.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\profil.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\profilsmiling.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\rightafter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\rightbefore.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\schiene.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\schienevonoben.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\szahn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\therapie1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\thumbmodel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\vorteile1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\welcomeimage1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\PublishProfiles\patients.thinortho.com.pubxml" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\KeinZugriff.cshtml" />
+    <Content Include="Views\Home\KeinSpeichern.cshtml" />
+    <Content Include="Views\Case\AddNewCase.cshtml" />
+    <Content Include="Views\Case\CheckUserMessages.cshtml" />
+    <Content Include="Views\Case\EditCase.cshtml" />
+    <Content Include="Views\Case\Index.cshtml" />
+    <Content Include="Views\Case\_Bilder.cshtml" />
+    <Content Include="Views\Case\_Nachrichten.cshtml" />
+    <Content Include="Views\Case\_Oberkiefer.cshtml" />
+    <Content Include="Views\Case\_Patient.cshtml" />
+    <Content Include="Views\Case\_Status.cshtml" />
+    <Content Include="Views\Case\_Unterkiefer.cshtml" />
+    <Content Include="Views\Case\_Zahnbewegung.cshtml" />
+    <Content Include="Views\Case\_Zusatzbehandlungen.cshtml" />
+    <Content Include="Views\Home\Impressum.cshtml" />
+    <Content Include="Views\Home\AGB.cshtml" />
+    <Content Include="Views\Home\Idee.cshtml" />
+    <Content Include="Views\Home\Therapie.cshtml" />
+    <Content Include="Views\Home\Vorteile.cshtml" />
+    <Content Include="Views\Home\Fallbeispiele.cshtml" />
+    <Content Include="Views\Case\_SonstigeBilder.cshtml" />
+    <Content Include="Views\Manage\VerifyUserData.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DropDown.cshtml" />
+    <Content Include="Views\Case\_Behandlungsplan1.cshtml" />
+    <Content Include="Views\Case\_Behandlungsplan2.cshtml" />
+    <Content Include="Views\Case\_Kosten.cshtml" />
+    <Content Include="Views\Case\_KostenBisher.cshtml" />
+    <Content Include="Views\Manage\SetUserPassword.cshtml" />
+    <Content Include="Views\Manage\ChangeUserData.cshtml" />
+    <Content Include="Views\Case\DeleteCase.cshtml" />
+    <Content Include="Views\Case\ViewCaseFiles.cshtml" />
+    <Content Include="Views\Case\_Behandlungsplan1s.cshtml" />
+    <Content Include="Views\Case\OpenModel.cshtml" />
+    <Content Include="Views\Case\_SonstigeBildersAltXXX.cshtml" />
+    <Content Include="Views\Case\_Behandlungsplan1m.cshtml" />
+    <Content Include="Views\Case\OpenModels.cshtml" />
+    <Content Include="Views\Payment\PayCaseCart.cshtml" />
+    <Content Include="Views\Payment\PayCaseCartDone.cshtml" />
+    <Content Include="Views\Account\RegisterCustomer.cshtml" />
+    <Content Include="Views\Account\LoginDisabled1.cshtml" />
+    <Content Include="Views\Wares\Create.cshtml" />
+    <Content Include="Views\Wares\Delete.cshtml" />
+    <Content Include="Views\Wares\Details.cshtml" />
+    <Content Include="Views\Wares\Edit.cshtml" />
+    <Content Include="Views\Wares\Index.cshtml" />
+    <Content Include="Views\Account\LoginDisabled2.cshtml" />
+    <Content Include="Views\Account\RegisterDisabled.cshtml" />
+    <Content Include="Views\Home\_iSmileAnime.cshtml" />
+    <Content Include="Views\Manage\ChangeUserDataCustomer.cshtml" />
+    <Content Include="Views\Manage\SetUserCase.cshtml" />
+    <Content Include="Views\Case\PatIndex.cshtml" />
+    <Content Include="Views\Case\ViewCase.cshtml" />
+    <Content Include="Views\Case\AddNewCasePat.cshtml" />
+    <Content Include="Views\Case\_OberkieferMin.cshtml" />
+    <Content Include="Views\Case\_UnterkieferMin.cshtml" />
+    <Content Include="Views\Case\_SonstigeBilderPat.cshtml" />
+    <Content Include="Views\Case\Bestaetigung.cshtml" />
+    <Content Include="Views\Case\_PatientView.cshtml" />
+    <Content Include="Views\Case\_NachrichtenView.cshtml" />
+    <Content Include="Views\Manage\DeleteUser.cshtml" />
+    <Content Include="Views\Home\en\Index.cshtml" />
+    <Content Include="Views\Shared\en\_Layout.cshtml" />
+    <Content Include="Views\Shared\en\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\en\Error.cshtml" />
+    <Content Include="Views\Shared\en\Lockout.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\en\DropDown.cshtml" />
+    <Content Include="Views\Home\en\Vorteile.cshtml" />
+    <Content Include="Views\Home\en\Contact.cshtml" />
+    <Content Include="Views\Home\en\Fallbeispiele.cshtml" />
+    <Content Include="Views\Home\en\Idee.cshtml" />
+    <Content Include="Views\Account\en\Login.cshtml" />
+    <Content Include="Views\Account\en\Register.cshtml" />
+    <Content Include="Views\Account\en\RegisterCustomer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201509161223372_InitialCreate.resx">
+      <DependentUpon>201509161223372_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509250033032_CasesText10k.resx">
+      <DependentUpon>201509250033032_CasesText10k.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510050706283_ThumbNail.resx">
+      <DependentUpon>201510050706283_ThumbNail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510060750215_Zahlung.resx">
+      <DependentUpon>201510060750215_Zahlung.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510191121033_m20151019.resx">
+      <DependentUpon>201510191121033_m20151019.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510191159597_m20151019-2.resx">
+      <DependentUpon>201510191159597_m20151019-2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510220948091_CaseNumberStrLonger.resx">
+      <DependentUpon>201510220948091_CaseNumberStrLonger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510291409536_m20151029-1.resx">
+      <DependentUpon>201510291409536_m20151029-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511030908531_m20151103idx.resx">
+      <DependentUpon>201511030908531_m20151103idx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511061051166_m20151106-1.resx">
+      <DependentUpon>201511061051166_m20151106-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512010812307_m20151201.resx">
+      <DependentUpon>201512010812307_m20151201.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512011030515_m20151202.resx">
+      <DependentUpon>201512011030515_m20151202.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601111407237_m20160111.resx">
+      <DependentUpon>201601111407237_m20160111.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602031045450_m20160203.resx">
+      <DependentUpon>201602031045450_m20160203.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602041123110_m20160204.resx">
+      <DependentUpon>201602041123110_m20160204.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602051238188_m20160205.resx">
+      <DependentUpon>201602051238188_m20160205.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602080202444_m20160208.resx">
+      <DependentUpon>201602080202444_m20160208.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602081053322_m20160209.resx">
+      <DependentUpon>201602081053322_m20160209.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602091017044_m20160210.resx">
+      <DependentUpon>201602091017044_m20160210.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602100813570_m201602101.resx">
+      <DependentUpon>201602100813570_m201602101.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602101015480_m201602102.resx">
+      <DependentUpon>201602101015480_m201602102.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602101053369_m201602103.resx">
+      <DependentUpon>201602101053369_m201602103.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602102016366_m201602106.resx">
+      <DependentUpon>201602102016366_m201602106.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="Reports\InvoiceReport1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InvoiceReport1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Migrations\201602110821086_m20160211.resx">
+      <DependentUpon>201602110821086_m20160211.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602160851498_m20160216.resx">
+      <DependentUpon>201602160851498_m20160216.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602180942289_m20160218.resx">
+      <DependentUpon>201602180942289_m20160218.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602260752433_m20160226.resx">
+      <DependentUpon>201602260752433_m20160226.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602260758129_m201602261.resx">
+      <DependentUpon>201602260758129_m201602261.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604031730394_m20160403.resx">
+      <DependentUpon>201604031730394_m20160403.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604051019424_m20160405.resx">
+      <DependentUpon>201604051019424_m20160405.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604060550459_m20160406.resx">
+      <DependentUpon>201604060550459_m20160406.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604060620044_m20160407.resx">
+      <DependentUpon>201604060620044_m20160407.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604121344481_m20160412.resx">
+      <DependentUpon>201604121344481_m20160412.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605181024408_20160518.resx">
+      <DependentUpon>201605181024408_20160518.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="Reports\DeliveryReport1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DeliveryReport1.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Migrations\201605301211438_m20160529.resx">
+      <DependentUpon>201605301211438_m20160529.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609280725311_m20160927.resx">
+      <DependentUpon>201609280725311_m20160927.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711221138430_m20171122attachment.resx">
+      <DependentUpon>201711221138430_m20171122attachment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802121011166_m20180212.resx">
+      <DependentUpon>201802121011166_m20180212.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\BehandlungsPlan1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>BehandlungsPlan1.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50735</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50481/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>"$(TargetDir)i18n.PostBuild.exe" "$(ProjectDir)web.config"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

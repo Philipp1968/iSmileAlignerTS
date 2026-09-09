@@ -1,0 +1,32 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Fehler";
+}
+
+<h1 class="text-danger">@ViewBag.Title</h1>
+
+<p> &nbsp; </p>
+
+<h2 class="text-danger">Fehler bei der Verarbeitung Ihrer Anforderung.</h2>
+
+<p> &nbsp; </p>
+
+<p>
+    @if (Model.ControllerName != null && Model.ControllerName != "")
+    {
+        @Model.ControllerName
+    }
+</p>
+<p>
+    @if (Model.ActionName != null && Model.ActionName != "")
+    {
+        @Model.ActionName
+    }
+</p>
+<p>
+    @if (Model.Exception != null)
+    {
+        @Model.Exception.ToString()
+    }
+</p>

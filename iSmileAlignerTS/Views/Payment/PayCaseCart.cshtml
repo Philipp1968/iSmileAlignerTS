@@ -1,0 +1,288 @@
+﻿@model iSmileAlignerTS.Models.CaseCartView
+
+@{
+    ViewBag.Title = "Warenkorb";
+}
+
+<h2>@ViewBag.Title</h2>
+<p> &nbsp; </p>
+
+@using (Html.BeginForm("PayCaseCart", "Payment", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.CaseNumber);
+    @Html.HiddenFor(m => m.CustomerEmail)
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Anrede:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.CustomerSalutation)
+                @Html.ValidationMessageFor(m => m.CustomerSalutation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Titel:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.CustomerTitel)
+                @Html.ValidationMessageFor(m => m.CustomerTitel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Vorname:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.CustomerGivenName)
+                @Html.ValidationMessageFor(m => m.CustomerGivenName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Nachname:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.CustomerSurName)
+                @Html.ValidationMessageFor(m => m.CustomerSurName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Email:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DisplayFor(m => m.CustomerEmail)
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Adresse 1:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.BillingStreet1)
+                @Html.ValidationMessageFor(m => m.BillingStreet1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Adresse 2:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.BillingStreet2)
+                @Html.ValidationMessageFor(m => m.BillingStreet2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("PLZ:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.BillingPostcode)
+                @Html.ValidationMessageFor(m => m.BillingPostcode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Stadt:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.BillingCity)
+                @Html.ValidationMessageFor(m => m.BillingCity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    if (Model.CartList.Count() > 0)
+    {
+        <hr />
+    }
+
+    <div class="form-group">
+        <div class="row">
+            @foreach (iSmileAlignerTS.Models.CaseCart c in Model.CartList)
+            {
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-1">
+                            @c.Amount.ToString("#0")
+                        </div>
+                        <div class="col-md-4">
+                            @c.WareText
+                        </div>
+                        <div class="col-md-1">
+                            @c.Currency
+                        </div>
+                        <div class="col-md-2">
+                            @c.Price.ToString("#0.00")
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" name="delWareButton" value="@c.Id" class="btn">Entf.</button>
+                        </div>
+                    </div>
+            }
+        </div>
+    </div>
+    
+    <hr />
+
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Stück:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.AddWareAmount)
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Artikel:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-8">
+                <select name="AddWareItem">
+                    <option value="0" selected>-</option>
+                    @foreach (iSmileAlignerTS.Models.Wares w in Model.Wares)
+                {
+                    if (Model.isDoctorShop == false)
+                    {
+                        <option value="@w.WareNumber">
+                            @{ var artikel = "" + @w.Longtext + (@w.isRequestQuote ? "  (Preis auf Anfrage)" : "  " + (@w.PricePat.ToString("#0.00") + " " + @w.Currency)); }
+                            @artikel
+                        </option>
+                    }
+                    else
+                    {
+                        <option value="@w.WareNumber">
+                            @{ var artikel = "" + @w.Longtext + (@w.isRequestQuote ? "  (Preis auf Anfrage)" : "  " + (@w.PriceDoc.ToString("#0.00") + " " + @w.Currency)); }
+                            @artikel
+                        </option>
+                    }
+                }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Korb:", new { @class = "col-md-2 control-label" })
+            <div col="col-md-2">
+                <button type="submit" name="addWareButton" value="x" class="btn">Hinzufügen</button>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                <p>Mit Bezahlen wird der Vorgang mit dem Bezahldienstleister PayUnity gestartet.</p>
+                <p>
+                    Gesamt:
+                    @Model.Total.ToString("#0.00")
+                    EUR
+                </p>
+                <p>
+                    davon 10% USt.:
+                    @Model.Total10.ToString("#0.00")
+                    EUR
+                </p>
+                <p>
+                    davon 20% USt.:
+                    @Model.Total20.ToString("#0.00")
+                    EUR
+                </p>
+            </div>
+        </div>
+    </div>
+
+    if (Model.checkOutID != null && Model.checkOutID != "")
+    {
+        <div class="form-group row">
+            <div class="col-md-offset-2 col-md-4">
+                <p>Bitte setzen Sie den Bezahlvorgang fort.</p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-group row">
+            <div class="col-md-2 control-label">
+                Hinweis:
+            </div>
+            <div class="col-md-4">
+                @Html.CheckBoxFor(m => m.AcceptCheckout)
+                AGB akzeptieren und bindende Bezahlung starten. Ihr Browser muß dafür Javascript und Cookies aktiviert haben.
+            </div>
+        </div>
+
+        if (Model.isDoctorShop == true)
+        {
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-4">
+                    @if (Model.Total > 0)
+                    {
+                        <button type="submit" name="payButton" class="btn btn-primary" style="background-color:#ca0d89">Bezahlen</button>                    }
+                    else
+                    {
+                        <button type="submit" name="payButton" disabled class="btn btn-primary" style="background-color:#ca0d89">Bezahlen</button>
+                    }
+                    <br />
+                    <p>
+                        Sie bekommen Ihre Rechnung im Anschluß per Email zugeschickt.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    @if (Model.Total > 0)
+                    {
+                        <button type="submit" name="payLSButton" value="x" class="btn btn-primary" style="background-color:#ca0d89">Lieferschein</button>
+                    }
+                    else
+                    {
+                        <button type="submit" name="payLSButton" value="x" disabled class="btn btn-primary" style="background-color:#ca0d89">Lieferschein</button>
+                    }
+                    <br />
+                    <p>
+                        Sie erhalten einen Lieferschein per Email sofort und Ihre Rechnung wird separat zugestellt.
+                    </p>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-md-4">
+                    @if (Model.Total > 0)
+                    {
+                        <button type="submit" name="payButton" class="btn btn-primary" style="background-color:#ca0d89">Bezahlen</button>
+                    }
+                    else
+                    {
+                        <button type="submit" name="payButton" disabled class="btn btn-primary" style="background-color:#ca0d89">Bezahlen</button>
+                    }
+                    <br />
+                    <p>
+                        Sie bekommen Ihre Rechnung im Anschluß per Email zugeschickt.
+                    </p>
+                </div>
+            </div>
+        }
+    }
+}
+
+<hr />
+
+@if (Model.checkOutID != null && Model.checkOutID != "")
+{
+    if (Model.testMode)
+    {
+        <form action="@Model.shopperResultUrl" class="paymentWidgets">VISA MASTER</form>
+    }
+    else
+    {
+        <form action="@Model.shopperResultUrl" class="paymentWidgets">VISA MASTER SOFORTUEBERWEISUNG</form>
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @if (Model.checkOutID != null && Model.checkOutID != "")
+    {
+        <script>
+            var wpwlOptions = {
+                locale: "de-AT",
+                style: "card"
+            }
+        </script>
+        
+        if (Model.testMode)
+        {
+            <script src="https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=@Model.checkOutID"></script>
+        }
+        else
+        {
+            <script src="https://oppwa.com/v1/paymentWidgets.js?checkoutId=@Model.checkOutID"></script>
+        }
+    }
+}

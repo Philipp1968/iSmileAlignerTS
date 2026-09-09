@@ -1,0 +1,56 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+<div class="form-group">
+    <div class="row">
+        @Html.Label("Patient", new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.DisplayFor(m => m.PatFirstname) &nbsp; @Html.DisplayFor(m => m.PatLastName) <br />
+            @Html.DisplayFor(m => m.PatAddress) <br />
+            @Html.DisplayFor(m => m.PatZIP) &nbsp; @Html.DisplayFor(m => m.PatCity)/>
+            <div>
+                @Html.HiddenFor(m => m.PatFirstname)
+                @Html.HiddenFor(m => m.PatLastName)
+                @Html.HiddenFor(m => m.PatAddress)
+                @Html.HiddenFor(m => m.PatZIP)
+                @Html.HiddenFor(m => m.PatCity)
+            </div>
+        </div>
+        <div class="col-md-4">
+            @if (@Model.PortraitThumbId != 0 && @Model.PortraitFotoId != 0)
+            {
+                <img src="@Url.Action("OpenPicture", "Case", new { id = @Model.PortraitThumbId })" title="@Model.PortraitFotoName" />
+            }
+            else
+            {
+                <img src="~/Images/portrait1.png" title="Portrait" />
+                <br />
+            }
+        </div>
+        <div class="col-md-2">
+            @if (Model.CaseNumberStr == null || Model.CaseNumberStr == "")
+            {
+                <b>@Html.DisplayFor(m => m.CaseNumber)</b>
+            }
+            else
+            {
+                <b>@Html.DisplayFor(m => m.CaseNumberStr)</b>
+            }
+        </div>
+    </div>
+    <div class="row">
+        @Html.Label("Geburtsdatum", new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.DisplayFor(m => m.PatBirthDate)
+            <div>
+                @Html.HiddenFor(m => m.PatBirthDate)
+            </div>
+        </div>
+        <div class="col-md-offset-4 col-md-2">
+            M &nbsp; @Html.RadioButtonFor(m => m.PatSex, "M", new { disabled = "disabled", style = "width:24px;height:24px" }) &nbsp;
+            W &nbsp; @Html.RadioButtonFor(m => m.PatSex, "W", new { disabled = "disabled", style = "width:24px;height:24px" })
+            <div>
+                @Html.HiddenFor(m => m.PatSex)
+            </div>
+        </div>
+    </div>
+</div>

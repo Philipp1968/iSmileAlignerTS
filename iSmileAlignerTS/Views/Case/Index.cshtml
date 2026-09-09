@@ -1,0 +1,140 @@
+﻿@model iSmileAlignerTS.Models.CaseIndexViewModel
+
+@{
+    ViewBag.Title = "Übersicht";
+}
+
+<h2>@ViewBag.Title</h2>
+<p> &nbsp; </p>
+
+@using (Html.BeginForm("Index", "Case", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                @if (@Model.isDoctor)
+                {
+                    <b>Arzt:</b>
+                }
+                else
+                {
+                    <b>Anwender:</b>
+                }
+            </div>
+            <div class="col-md-4">
+                @Model.DoctorName
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                Offen:
+            </div>
+            <div class="col-md-4">
+                @Model.CasesOpen.ToString("#0")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                Abgeschlossen:
+            </div>
+            <div class="col-md-4">
+                @Model.CasesClosed.ToString("#0")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.ActionLink("Neuen Fall erfassen", "AddNewCase", "Case", null, new { @class = "btn btn-primary", @style = "background-color:#ca0d89" }) <br /> <p> &nbsp; </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Suche:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.CaseSearch, new { placeholder = "Suchtext" })
+            </div>
+            <div class="col-md-2">
+                <input type="submit" name="submitButton" class="btn btn-primary" value="Suchen" style="background-color:#ca0d89" />
+                &nbsp;
+                <input type="submit" name="resetButton" class="btn" value="Alle" />
+            </div>
+        </div>
+    </div>
+
+    if (Model.IsAdmin)
+    {
+        <div class="form-group">
+            <div class="row">
+                <label class="col-md-2 control-label"> &nbsp; </label>
+                <div class="col-md-2">
+                    <input type="submit" name="emailListeButton" class="btn btn-primary" value="Liste schicken" style="background-color:#ca0d89" />
+                </div>
+                <div class="col-md-6">
+                    Erzeugt Email mit Text für alle Fälle.
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        @foreach (var item in Model.CaseList)
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    @if (item.CaseNumberStr == null || item.CaseNumberStr == "")
+                    {
+                        @item.CaseNumber
+                    }
+                    else
+                    {
+                        @item.CaseNumberStr
+                    }
+                </div>
+                <div class="col-md-3">
+                    @item.PatName
+                </div>
+                @if (@item.BestelltWieAngegeben == 0)
+                {
+                    <div class="col-md-1">
+                        <img src="~/Images/p@((Int16)@item.Status).png" />
+                        &nbsp;
+                        <a href='@Url.Action("Bestaetigung", "Case", new { id = item.CaseNumber })'>
+                            <img src='~/Images/best@((Int16)@item.BestelltWieAngegeben).png' />
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-1">
+                        <img src="~/Images/p@((Int16)@item.Status).png" />
+                        &nbsp;
+                        <img src="~/Images/best@((Int16)@item.BestelltWieAngegeben).png" title="@item.BestelltWieAngegebenKommentar" />
+                    </div>
+                }
+                @if (ViewBag.isAdmin == true)
+                {
+                    <div class="col-md-2">
+                        @Html.ActionLink("Löschen", "DeleteCase", new { id = item.CaseNumber })
+                        &nbsp;
+                        @Html.ActionLink("Öffnen", "EditCase", new { id = item.CaseNumber })
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-2">
+                        @Html.ActionLink("Öffnen", "EditCase", new { id = item.CaseNumber })
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

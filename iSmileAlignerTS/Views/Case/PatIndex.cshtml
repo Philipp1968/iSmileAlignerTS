@@ -1,0 +1,65 @@
+﻿@model iSmileAlignerTS.Models.CaseIndexViewModel
+
+@{
+    ViewBag.Title = "Übersicht";
+}
+
+<h2>@ViewBag.Title</h2>
+<p> &nbsp; </p>
+
+@using (Html.BeginForm("Index", "Case", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-2">
+                Offen:
+            </div>
+            <div class="col-md-4">
+                @Model.CasesOpen.ToString("#0")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                Abgeschlossen:
+            </div>
+            <div class="col-md-4">
+                @Model.CasesClosed.ToString("#0")
+            </div>
+        </div>
+    </div>
+   
+    <div class="form-group">
+        @foreach (var item in Model.CaseList)
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    @if (item.CaseNumberStr == null || item.CaseNumberStr == "")
+                    {
+                        @item.CaseNumber
+                    }
+                    else
+                    {
+                        @item.CaseNumberStr
+                    }
+                </div>
+                <div class="col-md-3">
+                    @item.PatName
+                </div>
+                <div class="col-md-1">
+                    <img src="~/Images/P@((Int16)@item.Status).png" />
+                </div>
+                <div class="col-md-offset-1 col-md-1">
+                    @Html.ActionLink("Öffnen", "ViewCase", new { id = item.CaseNumber })
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

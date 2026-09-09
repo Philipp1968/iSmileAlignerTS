@@ -1,0 +1,44 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+@if (ViewBag.isAdmin == true)
+{
+    <div class="form-group row">
+        @Html.Label("Stück:", new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.EditorFor(m => m.AddWareAmount)
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.Label("Artikel:", new { @class = "col-md-2 control-label" })
+        <div class="col-md-8">
+            <select name="AddWareItem">
+                <option value="0" selected>-</option>
+                @foreach (iSmileAlignerTS.Models.Wares w in Model.Wares)
+                {
+                    if (Model.isDoctorShop == false)
+                    {
+                        <option value="@w.WareNumber">
+                            @{ var artikel = "" + @w.Longtext + (@w.isRequestQuote ? "  (Preis auf Anfrage)" : "  " + (@w.PricePat.ToString("#0.00") + " " + @w.Currency)); }
+                            @artikel
+                        </option>
+                    }
+                    else
+                    {
+                        <option value="@w.WareNumber">
+                            @{ var artikel = "" + @w.Longtext + (@w.isRequestQuote ? "  (Preis auf Anfrage)" : "  " + (@w.PriceDoc.ToString("#0.00") + " " + @w.Currency)); }
+                            @artikel
+                        </option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        @Html.Label("Korb:", new { @class = "col-md-2 control-label" })
+        <div col="col-md-2">
+            <button type="submit" name="addWareButton" value="x" class="btn">Hinzufügen</button>
+        </div>
+    </div>
+}

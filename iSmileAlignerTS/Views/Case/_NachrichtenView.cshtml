@@ -1,0 +1,39 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+<div class="form-group">
+    @Html.Label("Arztkommentar:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Model.TreatComment
+    </div>
+</div>
+
+@if (Model.Messages != null && Model.Messages.Count() > 0)
+{
+    <div class="form-group">
+        @{ var didemit = false; }
+        @foreach (var item in Model.Messages)
+        {
+            <div class="row">
+                @if (didemit == false)
+                {
+                    @Html.Label("Nachrichten:", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-2">
+                        @item.MessageDate <br />
+                        @item.FromUserEmail
+                    </div>
+                    didemit = true;
+                }
+                else
+                {
+                    <div class="col-md-offset-2 col-md-2">
+                        @item.MessageDate <br />
+                        @item.FromUserEmail
+                    </div>
+                }
+                <div class="col-md-8">
+                    @item.Message
+                </div>
+            </div>
+        }
+    </div>
+}

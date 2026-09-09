@@ -1,0 +1,89 @@
+﻿@model iSmileAlignerTS.Models.CaseCartView
+
+<h2>@ViewBag.Title</h2>
+<p> &nbsp; </p>
+
+<div class="form-group row">
+    @Html.Label("Vorname:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-4">
+        @Html.DisplayFor(m => m.CustomerGivenName)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.Label("Nachname:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-4">
+        @Html.DisplayFor(m => m.CustomerSurName)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.Label("Email:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-4">
+        @Html.DisplayFor(m => m.CustomerEmail)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.Label("Adresse 1:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-4">
+        @Html.DisplayFor(m => m.BillingStreet1)
+    </div>
+</div>
+<div class="form-group row">
+    @Html.Label("Adresse 2:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-4">
+        @Html.DisplayFor(m => m.BillingStreet2)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.Label("PLZ:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-4">
+        @Html.DisplayFor(m => m.BillingPostcode)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.Label("Stadt:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-4">
+        @Html.DisplayFor(m => m.BillingCity)
+    </div>
+</div>
+
+<div class="form-group row">
+    @foreach (iSmileAlignerTS.Models.CaseCart c in Model.CartList)
+    {
+        <div class="row">
+            <div class="col-md-offset-2 col-md-1">
+                @c.Amount.ToString("#0")
+            </div>
+            <div class="col-md-4">
+                @c.WareText
+            </div>
+            <div class="col-md-2">
+                @c.Currency
+            </div>
+            <div class="col-md-2">
+                @c.Price.ToString("#0.00")
+            </div>
+        </div>
+    }
+</div>
+
+<hr />
+
+<div class="form-group row">
+    @Html.Label("Code:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-4">
+        @Html.DisplayFor(m => m.checkOutResultCode)
+    </div>
+</div>
+
+<div class="form-group row">
+    @Html.Label("Beschreibung:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-6">
+        @Html.DisplayFor(m => m.checkOutResultDescription)
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

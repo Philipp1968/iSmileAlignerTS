@@ -1,0 +1,69 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+
+<div class="form-group">
+    @Html.Label("Stripping:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.RadioButtonFor(m => m.Stripping, "Ja", new { style = "width:24px;height:24px" }) Ja &nbsp;
+        @Html.RadioButtonFor(m => m.Stripping, "Nein", new { style = "width:24px;height:24px" }) Nein &nbsp;
+        @Html.RadioButtonFor(m => m.Stripping, "WennNotwendig", new { style = "width:24px;height:24px" }) Wenn notwendig
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.Label("Zusatzbehandlungen:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        <table>
+            <tr>
+                <td> &nbsp; </td>
+                <td>@Html.CheckBoxFor(m => m.AddTreatClassII, new { style = "width:24px;height:24px" })</td>
+                <td> &nbsp; </td>
+                <td>Klasse II / III Behandlung</td>
+                <td> &nbsp; </td>
+                <td>@Html.CheckBoxFor(m => m.AddTreatExtrusion, new { style = "width:24px;height:24px" })</td>
+                <td> &nbsp; </td>
+                <td>Extrusionsfall / offener Biss</td>
+            </tr>
+            <tr>
+                <td> &nbsp; </td>
+                <td>@Html.CheckBoxFor(m => m.AddTreatSuspender, new { style = "width:24px;height:24px" })</td>
+                <td> &nbsp; </td>
+                <td>Suspender</td>
+                <td> &nbsp; </td>
+                <td>@Html.CheckBoxFor(m => m.AddTreatButtons, new { style = "width:24px;height:24px" })</td>
+                <td> &nbsp; </td>
+                <td>Knöpfe und Elastics</td>
+            </tr>
+            <tr>
+                <td> &nbsp; </td>
+                <td>@Html.CheckBoxFor(m => m.AddTreatExtract, new { style = "width:24px;height:24px" })</td>
+                <td> &nbsp; </td>
+                <td>Extraktions Fall</td>
+                <td> &nbsp; </td>
+                <td>@Html.CheckBoxFor(m => m.AddTreatPontic, new { style = "width:24px;height:24px" })</td>
+                <td> &nbsp; </td>
+                <td>Pontic / Zahn als Lückenfüller</td>
+            </tr>
+            <tr>
+                <td> &nbsp; </td>
+                <td>@Html.CheckBoxFor(m => m.AddTreatRetainer, new { style = "width:24px;height:24px" })</td>
+                <td> &nbsp; </td>
+                <td>Retainer (Hard)</td>
+                <td> &nbsp; </td>
+                <td>@Html.CheckBoxFor(m => m.AddTreatWire, new { style = "width:24px;height:24px" })</td>
+                <td> &nbsp; </td>
+                <td>Retainer Draht</td>
+            </tr>
+            <tr>
+                <td> &nbsp; </td>
+                <td>@Html.CheckBoxFor(m => m.AddTreatRail, new { style = "width:24px;height:24px" })</td>
+                <td> &nbsp; </td>
+                <td>Bleich Schiene</td>
+                <td> &nbsp; </td>
+                <td>@Html.CheckBoxFor(m => m.AddTreatAttachment, new { style = "width:24px;height:24px" })</td>
+                <td> &nbsp; </td>
+                <td>Attachments</td>
+            </tr>
+        </table>
+    </div>
+</div>

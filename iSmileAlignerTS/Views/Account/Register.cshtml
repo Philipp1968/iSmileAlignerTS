@@ -1,0 +1,211 @@
+﻿@model iSmileAlignerTS.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Registrierung";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p />
+
+@if (Model.isPatient == false)
+{
+    <p>Die Registrierung als Partner ermöglicht Ihnen die Bestellung, Abwicklung und Bezahlung der iSmile-Produkte für Ihre Patienten, sowie die Kommunikation mit unserem Team.</p>
+    <p>Die iSmile Webseite ist ein hervoragendes Tool um die Übersicht Ihrer Patienten mit Behandlungsdaten und Photos zu dokumentieren.</p>
+}
+else
+{
+    <p>Die Registrierung als Patient ermöglicht Ihnen den Erwerb von Begleitprodukten der iSmile-Produktserie.</p>
+}
+
+<p />
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <h4>Konto</h4>
+
+    <p />
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    if (ViewBag.ValidationErrors != null)
+    {
+        <div class="form-group">
+            <div class="row">
+                @Html.Label("Eingabeproblem", new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    <p>
+                        <b>
+                            <font color="red">
+                                @ViewBag.ValidationErrors
+                            </font>
+                        </b>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        <div class="row">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.Email, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.PasswordFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+
+    <hr />
+    <h4>Anwenderdaten</h4>
+
+    <p />
+
+    <div class="form-group">
+        <div class="row">
+            @Html.LabelFor(m => m.Salutation, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.Salutation, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Titel, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.Titel, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Firstname, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.Firstname, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Lastname, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.Lastname, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+
+    <hr />
+    <h4>Anschrift</h4>
+
+    <p />
+
+    <div class="form-group">
+        @if (Model.isPatient == false)
+        {
+            <div class="row">
+                @Html.LabelFor(m => m.MedicalField, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.EditorFor(m => m.MedicalField, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(m => m.Praxis, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.EditorFor(m => m.Praxis, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        }
+        <div class="row">
+            @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.Address, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.ZIP, new { @class = "col-md-2 control-label" })
+            <div class="col-md-2">
+                @Html.EditorFor(m => m.ZIP, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.City, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Land", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(m => m.CountryCode, (List<SelectListItem>)ViewBag.LandISOList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CountryCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h4>Kontakt</h4>
+
+    <p />
+
+    <div class="form-group">
+        <div class="row">
+            @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.Phone, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.MobilPhone, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.EditorFor(m => m.MobilPhone, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        @if (Model.isPatient == false)
+        {
+            <div class="row">
+                @Html.LabelFor(m => m.Fax, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.EditorFor(m => m.Fax, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="row">
+                @Html.LabelFor(m => m.WebURL, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.EditorFor(m => m.WebURL, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        }
+    </div>
+
+    <hr />
+
+    <h4>Bitte Angaben prüfen und dann Registrieren.</h4>
+    
+    <p />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Registrieren" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

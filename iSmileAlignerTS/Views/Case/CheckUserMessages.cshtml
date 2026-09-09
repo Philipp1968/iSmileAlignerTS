@@ -1,0 +1,37 @@
+﻿@model IEnumerable<iSmileAlignerTS.Models.MessageViewModel>
+
+@{
+    ViewBag.Title = "Fälle mit Nachrichten";
+}
+
+<h2>@ViewBag.Title</h2>
+<p> &nbsp; </p>
+
+<div>
+    <div class="form-group">
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-md-1">
+                    @item.CaseNumber
+                </div>
+                <div class="col-md-1">
+                    @item.MessageDate
+                </div>
+                <div class="col-md-2">
+                    @item.DoctorName
+                </div>
+                <div class="col-md-5">
+                    @item.Message
+                </div>
+                <div class="col-md-2">
+                    @Html.ActionLink("Öffnen", "EditCase", new { id = item.CaseNumber })
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

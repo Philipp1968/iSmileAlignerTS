@@ -1,0 +1,155 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+<div class="form-group">
+    <div class="row">
+        @Html.Label("Röntgen:", new { @class = "col-md-2 control-label" })
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            @if (Model.DistXFotoId != 0 && Model.DistXThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = Model.DistXFotoId  })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = Model.DistXThumbId })" title="@Model.DistXFotoName" />
+                </a>
+            }
+            else
+            {
+                <br />
+            }
+            @Html.TextBoxFor(m => m.DistXFotoBin, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.DistXFotoBin, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-6">
+            @if (Model.PanoFotoId != 0 && Model.PanoThumbId != 0)
+            {
+                <a href="@Url.Action("OpenPicture", "Case", new { id = Model.PanoFotoId  })" target="_blank">
+                    <img src="@Url.Action("OpenPicture", "Case", new { id = Model.PanoThumbId})" title="@Model.PanoFotoName" />
+                </a>
+            }
+            else
+            {
+                <br />
+            }
+            @Html.TextBoxFor(m => m.PanoFotoBin, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.PanoFotoBin, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+
+@if (Model.Files != null && Model.Files.Count() > 0)
+{
+    <hr />
+
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Bilder:", new { @class = "col-md-2 control-label" })
+        </div>
+        @{
+    var picCount = 1;
+    var rowCount = 0;
+        }
+        @foreach (var item in Model.Files)
+        {
+            if (rowCount == 0)
+            {
+                @Html.Raw("<div class=\"row\">")
+            }
+
+            if (item.FileType == iSmileAlignerTS.Models.CaseFileType.AnyModelOK || item.FileType == iSmileAlignerTS.Models.CaseFileType.AnyModelUK)
+            {
+                <div class="col-md-3">
+                    @Html.Label("Bild " + picCount.ToString("#0") + ((item.FileType == iSmileAlignerTS.Models.CaseFileType.AnyModelOK) ? " OK" : " UK")) <br />
+                    <a href="@Url.Action("OpenModel", "Case", new { id = @item.ImageId })" target="_blank">
+                        <img src="~/Images/thumbmodel.png" />
+                    </a>
+                    <br />
+                    @item.Filename
+                    <br />
+                    @item.FileDate.ToString("u")
+                </div>
+            }
+            else if (item.FileType == iSmileAlignerTS.Models.CaseFileType.AnyPhoto)
+            {
+                <div class="col-md-3">
+                    @Html.Label("Bild " + picCount.ToString("#0")) <br />
+                    <a href="@Url.Action("OpenPicture", "Case", new { id = item.ImageId  })" target="_blank">
+                        <img src="@Url.Action("OpenPicture", "Case", new { id = item.ThumbId })" title="@item.Filename" />
+                    </a>
+                    <br />
+                    @item.Filename
+                    <br />
+                    @item.FileDate.ToString("u")
+                </div>
+            }
+
+            picCount += 1;
+            rowCount += 1;
+
+            if (rowCount == 4)
+            {
+                rowCount = 0;
+                @Html.Raw("</div>")
+            }
+        }
+    </div>
+}
+
+<div class="form-group">
+    @Html.Label("Zusätzliches Bild:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(m => m.AddFotoBin, new { type = "file" })
+        @Html.ValidationMessageFor(m => m.AddFotoBin, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-2">
+        <input type="submit" name="addPicButton" class="btn btn-default" value="Hinzufügen" />
+    </div>
+</div>
+
+<div class="form-group">
+    @Html.Label("Zusätzliche Datei:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-8">
+        @Html.TextBoxFor(m => m.AddAnyFileBin, new { type = "file" })
+        @Html.ValidationMessageFor(m => m.AddAnyFileBin, "", new { @class = "text-danger" })
+    </div>
+    <div class="col-md-2">
+        <input type="submit" name="addAnyFileButton" class="btn btn-default" value="Hinzufügen" />
+    </div>
+</div>
+
+<hr />
+
+<div class="form-group">
+    <div class="row">
+        @Html.Label("Zusätzliches Model:", new { @class = "col-md-2 control-label" })
+        <div class="col-md-2">
+            OK &nbsp; <input checked="checked" id="AddModelType" name="AddModelType" style="width:24px;height:24px" type="radio" value="51" /> &nbsp;
+            UK &nbsp; <input id="AddModelType" name="AddModelType" style="width:24px;height:24px" type="radio" value="52" />
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(m => m.AddModelBin, new { type = "file" })
+            @Html.ValidationMessageFor(m => m.AddModelBin, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" name="addStlButton" class="btn btn-default" value="Hinzufügen" />
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="form-group">
+    @Html.Label("PDF Dokument:", new { @class = "col-md-2 control-label" })
+    <div class="col-md-4">
+        @Html.TextBoxFor(m => m.AddPDFBin, new { type = "file" })
+        @Html.ValidationMessageFor(m => m.AddPDFBin, "", new { @class = "text-danger" })
+    </div>
+    @if (Model.PDFDocumentID != null && Model.PDFDocumentID != 0 && Model.PDFDocumentFilename != null && Model.PDFDocumentFilename != "")
+    {
+        <div class="col-md-2">
+            <a href="@Url.Action("OpenPicture", "Case", new { id = Model.PDFDocumentID  })" target="_blank">
+                @Model.PDFDocumentFilename
+            </a>
+        </div>
+    }
+</div>

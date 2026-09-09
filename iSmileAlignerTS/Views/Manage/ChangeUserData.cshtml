@@ -1,0 +1,156 @@
+﻿@model iSmileAlignerTS.Models.ChangeUserDataViewModel
+
+@{
+    ViewBag.Title = "Daten ändern";
+}
+
+<h2>@ViewBag.Title</h2>
+<p> &nbsp; </p>
+
+@using (Html.BeginForm("ChangeUserData", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    if (ViewBag.ValidationErrors != null)
+    {
+        <div class="form-group">
+            <div class="row">
+                @Html.Label("Eingabeproblem", new { @class = "col-md-2 control-label" })
+                <div class="col-md-8">
+                    <p>
+                        <b>
+                            <font color="red">
+                                @ViewBag.ValidationErrors
+                            </font>
+                        </b>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
+    <h4>Anwenderdaten</h4>
+    <hr />
+
+    <div class="form-group">
+        <div class="row">
+            @Html.LabelFor(m => m.Salutation, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Salutation, new { @class = "col-md-4" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Titel, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Titel, new { @class = "col-md-4" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Firstname, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Firstname, new { @class = "col-md-4" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Lastname, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Lastname, new { @class = "col-md-4" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.BirthDate, new { @class = "col-md-4" })
+            </div>
+        </div>
+    </div>
+
+
+    <h4>Anschrift</h4>
+    <hr />
+
+    <div class="form-group">
+        <div class="row">
+            @Html.LabelFor(m => m.MedicalField, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.MedicalField, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Praxis, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Praxis, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Address, new { @class = "col-md-4" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.ZIP, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.ZIP, new { @class = "col-md-4" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.City, new { @class = "col-md-4" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.Label("Land", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(m => m.CountryCode, (List<SelectListItem>)ViewBag.LandISOList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CountryCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <h4>Kontakt</h4>
+    <hr />
+
+    <div class="form-group">
+        <div class="row">
+            @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Phone, new { @class = "col-md-4" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.MobilPhone, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.MobilPhone, new { @class = "col-md-4" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Fax, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.Fax, new { @class = "col-md-4" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.WebURL, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.WebURL, new { @class = "col-md-4" })
+            </div>
+        </div>
+    </div>
+    
+    <h4>Bitte Angaben prüfen und dann Speichern.</h4>
+    <hr />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Speichern" style="background-color:#ca0d89" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="@System.Globalization.CultureInfo.CurrentUICulture.Name">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/favicon.ico"/>
+    <title>@ViewBag.Title iSmileAligner Partner und Kunden-Webdialog</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        #AnimatediSmile {
+            height: 103px;
+            width: 103px;
+            background: url("~/Images/ismile_animate.gif");
+            margin: auto;
+        }
+
+            #AnimatediSmile:hover {
+                cursor: pointer;
+                background: url("~/Images/ismile_animate.gif");
+            }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <script>
+        window.addEventListener("load", function () {
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": "#000"
+                    },
+                    "button": {
+                        "background": "#f1d600"
+                    }
+                },
+                "theme": "classic",
+                "content": {
+                    "message": "Wir verwenden Cookies um unsere Webseite für Sie möglichst benutzerfreundlich zu gestalten. Wenn Sie fortfahren gehen wir davon aus daß Sie mit der Verwendung von Cookies einverstanden sind.",
+                    "dismiss": "OK",
+                    "link": "Cookie-Richtlinie",
+                    "href": "/Home/Impressum"
+                }
+            })
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Schöne Zähne", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @* <li>@Html.ActionLink("Schöne Zähne", "Index", "Home")</li> *@
+                    @* <li>@Html.ActionLink("Idee", "Idee", "Home")</li> *@
+                    @* <li>@Html.ActionLink("Therapie", "Therapie", "Home")</li> *@
+                    <li>@Html.ActionLink("Vorteile", "Vorteile", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Fall des Monats", "Fallbeispiele", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Kontakt", "Contact", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("Impressum", "Impressum", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("AGB", "AGB", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                    <li>@Html.ActionLink("English", "Englisch", "Home", new { area = "" }, new { @class = "navbar-brand" })</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <div>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            &nbsp;
+        </p>
+        <p>
+            &nbsp;
+        </p>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/app")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

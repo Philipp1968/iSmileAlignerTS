@@ -1,0 +1,41 @@
+﻿@model iSmileAlignerTS.Models.CaseViewModel
+
+@if (ViewBag.isAdmin == true)
+{
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Status:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.Planung, new { label = "Planung" }) &nbsp; Planung<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.PlanungBezahlt, new { caption = "Plan. bezahlt" }) &nbsp; Planung bezahlt<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.FallPlanung1, new { label = "Planung 1" }) &nbsp; Fallplanung 1<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.FallPlanung2, new { label = "Planung 2" }) &nbsp; Fallplanung 2<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.FallPlanung3, new { label = "Planung 3" }) &nbsp; Fallplanung 3<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.HerstellungBezahlt, new { label = "Herst. bezahlt" }) &nbsp; Herstellung bezahlt<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.Herstellung, new { label = "Herstellung" }) &nbsp; Herstellung<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.Versand, new { label = "Versand" }) &nbsp; Versand<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.FallAbgeschlossen, new { label = "Abgeschlossen" }) &nbsp; Abgeschlossen<br />
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="form-group">
+        <div class="row">
+            @Html.Label("Status:", new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.Planung, new { label = "Planung" , disabled = "disabled" }) &nbsp; Planung<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.PlanungBezahlt, new { caption = "Plan. bezahlt", disabled = "disabled" }) &nbsp; Planung bezahlt<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.FallPlanung1, new { label = "Planung 1", disabled = "disabled" }) &nbsp; Fallplanung 1<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.FallPlanung2, new { label = "Planung 2", disabled = "disabled" }) &nbsp; Fallplanung 2<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.FallPlanung3, new { label = "Planung 3", disabled = "disabled" }) &nbsp; Fallplanung 3<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.HerstellungBezahlt, new { label = "Herst. bezahlt", disabled = "disabled" }) &nbsp; Herstellung bezahlt<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.Herstellung, new { label = "Herstellung", disabled = "disabled" }) &nbsp; Herstellung<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.Versand, new { label = "Versand", disabled = "disabled" }) &nbsp; Versand<br />
+                @Html.RadioButtonFor(m => m.CaseState, iSmileAlignerTS.Models.CaseStates.FallAbgeschlossen, new { label = "Abgeschlossen", disabled = "disabled" }) &nbsp; Abgeschlossen<br />
+            </div>
+        </div>
+    </div>
+}
+

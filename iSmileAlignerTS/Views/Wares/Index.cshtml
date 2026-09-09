@@ -1,0 +1,64 @@
+﻿@model IEnumerable<iSmileAlignerTS.Models.Wares>
+
+@{
+    ViewBag.Title = "Artikelübersicht";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Display("Nummer")
+        </th>
+        <th>
+            @Html.Display("Beschreibung")
+        </th>
+        <th>
+            @Html.Display("Preis/Doc")
+        </th>
+        <th>
+            @Html.Display("Preis/Pat")
+        </th>
+        <th>
+            @Html.Display("Anfrage")
+        </th>
+        <th>
+            @Html.Display("Shop")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WareNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Longtext)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PriceDoc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PricePat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isRequestQuote)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InShop)
+        </td>
+        <td>
+            @Html.ActionLink("Änd.", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Ans.", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Lös.", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
