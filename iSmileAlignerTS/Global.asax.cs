@@ -273,66 +273,18 @@ namespace iSmileAlignerTS
             string path = System.Environment.GetEnvironmentVariable("temp");
             if (path == null || path.Length == 0) path = @"c:\temp";
             path = path + @"\__ismilealignertswebapp-" + DateTime.Now.ToString(@"yyyy-MM-dd") + ".log";
-            Random rnd = new Random();
             string m = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " " + msg + ";" + memberName + ";" + sourceLineNumber.ToString() + ";" + sourceFilePath;
-
-            bool success = false;
-            for (int i = 0; !success && i < 50; i+= 1)
+            StreamWriter sw = null;
+            try
             {
-                StreamWriter sw = null;
-                try
-                {
-                    sw = File.AppendText(path);
-                    sw.WriteLine(m);
-                    sw.Close();
-                    sw.Dispose();
-                    sw = null;
-                    success = true;
-                }
-                catch (Exception ex)
-                {
-                    Thread.Sleep(100 + rnd.Next(20) * 50);
-                }
+                sw = File.AppendText(path);
+                sw.WriteLine(m);
+                sw.Close();
+                sw.Dispose();
+                sw = null;
             }
-
-            privateLogMsgs = m + privateLogMsgs;
-            if (privateLogMsgs.Count() >= 70000)
+            catch (Exception)
             {
-                privateLogMsgs = privateLogMsgs.Substring(0, 30000);
-            }
-
-            if (msg.Contains("Exception"))
-            {
-                // SendeEmail("info@philippott.eu", "ismilelog:" + msg, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " : " + msg + System.Environment.NewLine + memberName + System.Environment.NewLine + sourceFilePath + System.Environment.NewLine + sourceLineNumber.ToString("#0"));
-                try
-                {
-                    MailMessage mailmsg = new MailMessage();
-                    mailmsg.From = new MailAddress("info@thinortho.com");
-                    mailmsg.To.Add(new MailAddress("info@philippott.eu"));
-                    mailmsg.Subject = "Exception @" + sourceLineNumber.ToString("#0") + " " + memberName + ", " + sourceFilePath;
-                    mailmsg.Body = m ?? " ";
-                    mailmsg.IsBodyHtml = false;
-                    mailmsg.BodyEncoding = Encoding.UTF8;
-                    mailmsg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(m ?? " ", Encoding.UTF8, MediaTypeNames.Text.Plain));
-                    SmtpClient smtp = new SmtpClient("smtp.sendgrid.net", Convert.ToInt32(587));
-                    try
-                    {
-                        smtp.Credentials = new System.Net.NetworkCredential("azure_fbb8568967aaf7a9cbea09e721ce16e1@azure.com", "045a8079ad05435191efec6d32d12aff");
-                        smtp.Send(mailmsg);
-                    }
-                    catch (Exception ex)
-                    {
-                        ex = null;
-                    }
-                    mailmsg.Dispose();
-                    mailmsg = null;
-                    smtp.Dispose();
-                    smtp = null;
-                }
-                catch (Exception ex)
-                {
-                    ex = null;
-                }
             }
         }
 
