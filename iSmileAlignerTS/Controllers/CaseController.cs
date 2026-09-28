@@ -1293,6 +1293,108 @@ namespace iSmileAlignerTS.Controllers
         }
 
 
+        // Liste der Dateien eines Falls (Fotos, Modelle, PDFs) fuer die Ansicht laden.
+        // Es werden zuerst nur die Ids gelesen und danach jeder Datensatz einzeln,
+        // damit die BLOB-Daten nicht in einem einzigen Resultset uebertragen werden
+        // (SQL Fehler 19 - Physische Verbindung nicht einsatzbereit).
+        private List<CaseFilesList> LoadCaseFilesList(long CaseId)
+        {
+            List<CaseFilesList> files = new List<CaseFilesList>();
+
+            List<long> picIds = db.CaseFiles.AsNoTracking()
+                .Where(x => x.CaseId == CaseId &&
+                    (x.FileType == CaseFileType.AnyPhoto ||
+                     x.FileType == CaseFileType.AnyModelOK ||
+                     x.FileType == CaseFileType.AnyModelUK ||
+                     x.FileType == CaseFileType.AnyPDFFile ||
+                     x.FileType == CaseFileType.PDFRechung))
+                .OrderBy(y => y.FileType)
+                .ThenBy(y => y.FileNum)
+                .ThenBy(z => z.FileDate)
+                .ThenBy(z => z.Filename)
+                .ThenBy(z => z.isThumbNail)
+                .Select(x => x.Id)
+                .ToList();
+
+            if (picIds.Count == 0)
+            {
+                return files;
+            }
+
+            MvcApplication.logMsg("add pics: " + picIds.Count.ToString("#0"));
+
+            for (int i = 0; i < picIds.Count;)
+            {
+                CaseFiles pic = LoadCaseFile(picIds[i]);
+                if (pic == null)
+                {
+                    MvcApplication.logMsg("pics-a: " + i.ToString("#0") + " " + picIds[i].ToString("#0") + " nicht gefunden");
+                    i += 1;
+                    continue;
+                }
+
+                bool anyPhoto = pic.FileType == CaseFileType.AnyPhoto;
+
+                MvcApplication.logMsg("pics-a: " + i.ToString("#0") + " " + pic.Id.ToString("#0") + " " + pic.Filename + " " + (pic.isThumbNail ? "(t)" : "(n)"));
+
+                CaseFilesList item = new CaseFilesList();
+                item.FileDate = pic.FileDate.GetValueOrDefault(DateTime.Now);
+                item.Filename = pic.Filename;
+                item.FileType = pic.FileType;
+                if (pic.isThumbNail)
+                {
+                    item.ThumbId = pic.Id;
+                }
+                else
+                {
+                    item.ImageId = pic.Id;
+                }
+                pic = null;
+
+                // Ein Foto besteht aus zwei Datensaetzen (Bild und Thumbnail)
+                if (anyPhoto && i + 1 < picIds.Count)
+                {
+                    pic = LoadCaseFile(picIds[i + 1]);
+                    if (pic != null)
+                    {
+                        MvcApplication.logMsg("pics-b: " + i.ToString("#0") + " " + pic.Id.ToString("#0") + " " + pic.Filename + " " + (pic.isThumbNail ? "(t)" : "(n)"));
+
+                        if (pic.isThumbNail)
+                        {
+                            item.ThumbId = pic.Id;
+                        }
+                        else
+                        {
+                            item.ImageId = pic.Id;
+                        }
+                        pic = null;
+                    }
+                    i += 2;
+                }
+                else
+                {
+                    i += 1;
+                }
+                files.Add(item);
+            }
+
+            return files;
+        }
+
+        // Einen einzelnen CaseFiles-Datensatz inkl. BLOB laden und im Session-Cache ablegen
+        // (OpenPicture liest das Bild zuerst aus der Session).
+        private CaseFiles LoadCaseFile(long Id)
+        {
+            CaseFiles pic = db.CaseFiles.AsNoTracking().FirstOrDefault(x => x.Id == Id);
+            if (pic != null)
+            {
+                string SessionPicName = "bild_" + pic.Id.ToString("#0");
+                Session[SessionPicName] = pic;
+            }
+            return pic;
+        }
+
+
         // GET: Picture
         // [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
         [Authorize]
@@ -2904,81 +3006,8 @@ namespace iSmileAlignerTS.Controllers
 
             // bilder laden
             // Dist, Pano, Any
-            sCaseModel.Files = new List<CaseFilesList>();
-            //
-            //    IEnumerable<CaseFiles> pics  = db.CaseFiles.Where(x => x.CaseId == sCaseModel.CaseId && x.FileType == CaseFileType.AnyPhoto).OrderBy(y => y.FileNum).OrderBy(y => y.FileDate).ThenBy(z => z.isThumbNail);
-            //List<int> picsids =  db.CaseFiles.AsNoTracking().Where(x => x.CaseId == sCaseModel.CaseId &&
-            //    (x.FileType == CaseFileType.AnyPhoto ||
-            //    x.FileType == CaseFileType.AnyModelOK ||
-            //    x.FileType == CaseFileType.AnyModelUK ||
-            //    x.FileType == CaseFileType.AnyPDFFile ||
-            //    x.FileType == CaseFileType.PDFRechung)
-            //    ).OrderBy(y => y.FileType).ThenBy(y => y.FileNum).ThenBy(z => z.FileDate).ThenBy(z => z.Filename).ThenBy(z => z.isThumbNail).Select(x => new { x.Id }).ToList();
-
-            IEnumerable<CaseFiles> pics = db.CaseFiles.AsNoTracking().Where(x => x.CaseId == sCaseModel.CaseId &&
-                (x.FileType == CaseFileType.AnyPhoto ||
-                x.FileType == CaseFileType.AnyModelOK ||
-                x.FileType == CaseFileType.AnyModelUK ||
-                x.FileType == CaseFileType.AnyPDFFile ||
-                x.FileType == CaseFileType.PDFRechung)
-                ).OrderBy(y => y.FileType).ThenBy(y => y.FileNum).ThenBy(z => z.FileDate).ThenBy(z => z.Filename).ThenBy(z => z.isThumbNail).ToList();
-            if (pics != null && pics.Count() > 0)
-            {
-                MvcApplication.logMsg("add pics: " + pics.Count().ToString("#0"));
-
-                for (int i=0; i < pics.Count();)
-                {
-                    CaseFiles pic = pics.ElementAt(i);
-                    bool anyPhoto = pic.FileType == CaseFileType.AnyPhoto;
-
-                    MvcApplication.logMsg("pics-a: " + i.ToString("#0") + " " + pic.Id.ToString("#0") + " " + pic.Filename + " " + (pic.isThumbNail ? "(t)" : "(n)"));
-
-                    CaseFilesList item = new CaseFilesList();
-
-                    string SessionPicName = "bild_" + pic.Id.ToString("#0");
-                    Session[SessionPicName] = pic;
-
-                    item.FileDate = pic.FileDate.GetValueOrDefault(DateTime.Now);
-                    item.Filename = pic.Filename;
-                    item.FileType = pic.FileType;
-                    if (pic.isThumbNail)
-                    {
-                        item.ThumbId = pic.Id;
-                    }
-                    else
-                    {
-                        item.ImageId = pic.Id;
-                    }
-                    pic = null;
-
-                    if (anyPhoto == true)
-                    {
-                        pic = pics.ElementAt(i + 1);
-
-                        MvcApplication.logMsg("pics-b: " + i.ToString("#0") + " " + pic.Id.ToString("#0") + " " + pic.Filename + " " + (pic.isThumbNail ? "(t)" : "(n)"));
-
-                        SessionPicName = "bild_" + pic.Id.ToString("#0");
-                        Session[SessionPicName] = pic;
-
-                        if (pic.isThumbNail)
-                        {
-                            item.ThumbId = pic.Id;
-                        }
-                        else
-                        {
-                            item.ImageId = pic.Id;
-                        }
-                        i += 2;
-                    }
-                    else
-                    {
-                        i += 1;
-                    }
-                    sCaseModel.Files.Add(item);
-                    pic = null;
-                }
-            }
-            pics= null;
+            // Ids zuerst lesen, dann jeden Datensatz einzeln laden (siehe LoadCaseFilesList)
+            sCaseModel.Files = LoadCaseFilesList(sCaseModel.CaseId);
 
             // nachrichten laden
             //
@@ -4125,73 +4154,8 @@ namespace iSmileAlignerTS.Controllers
 
             // bilder laden
             // Dist, Pano, Any
-            sCaseModel.Files = new List<CaseFilesList>();
-            //
-            //    IEnumerable<CaseFiles> pics  = db.CaseFiles.Where(x => x.CaseId == sCaseModel.CaseId && x.FileType == CaseFileType.AnyPhoto).OrderBy(y => y.FileNum).OrderBy(y => y.FileDate).ThenBy(z => z.isThumbNail);
-            IEnumerable<CaseFiles> pics = db.CaseFiles.Where(x => x.CaseId == sCaseModel.CaseId &&
-                (x.FileType == CaseFileType.AnyPhoto ||
-                x.FileType == CaseFileType.AnyModelOK ||
-                x.FileType == CaseFileType.AnyModelUK ||
-                x.FileType == CaseFileType.AnyPDFFile ||
-                x.FileType == CaseFileType.PDFRechung)
-                ).OrderBy(y => y.FileType).ThenBy(y => y.FileNum).ThenBy(z => z.FileDate).ThenBy(z => z.Filename).ThenBy(z => z.isThumbNail).ToList();
-            if (pics != null && pics.Count() > 0)
-            {
-                MvcApplication.logMsg("add pics: " + pics.Count().ToString("#0"));
-
-                for (int i = 0; i < pics.Count(); )
-                {
-                    CaseFiles pic = pics.ElementAt(i);
-                    bool anyPhoto = pic.FileType == CaseFileType.AnyPhoto;
-
-                    MvcApplication.logMsg("pics-a: " + i.ToString("#0") + " " + pic.Id.ToString("#0") + " " + pic.Filename + " " + (pic.isThumbNail ? "(t)" : "(n)"));
-
-                    CaseFilesList item = new CaseFilesList();
-
-                    string SessionPicName = "bild_" + pic.Id.ToString("#0");
-                    Session[SessionPicName] = pic;
-
-                    item.FileDate = pic.FileDate.GetValueOrDefault(DateTime.Now);
-                    item.Filename = pic.Filename;
-                    item.FileType = pic.FileType;
-                    if (pic.isThumbNail)
-                    {
-                        item.ThumbId = pic.Id;
-                    }
-                    else
-                    {
-                        item.ImageId = pic.Id;
-                    }
-                    pic = null;
-
-                    if (anyPhoto == true)
-                    {
-                        pic = pics.ElementAt(i + 1);
-
-                        MvcApplication.logMsg("pics-b: " + i.ToString("#0") + " " + pic.Id.ToString("#0") + " " + pic.Filename + " " + (pic.isThumbNail ? "(t)" : "(n)"));
-
-                        SessionPicName = "bild_" + pic.Id.ToString("#0");
-                        Session[SessionPicName] = pic;
-
-                        if (pic.isThumbNail)
-                        {
-                            item.ThumbId = pic.Id;
-                        }
-                        else
-                        {
-                            item.ImageId = pic.Id;
-                        }
-                        i += 2;
-                    }
-                    else
-                    {
-                        i += 1;
-                    }
-                    sCaseModel.Files.Add(item);
-                    pic = null;
-                }
-            }
-            pics = null;
+            // Ids zuerst lesen, dann jeden Datensatz einzeln laden (siehe LoadCaseFilesList)
+            sCaseModel.Files = LoadCaseFilesList(sCaseModel.CaseId);
 
             // nachrichten laden
             //
