@@ -1385,12 +1385,21 @@ namespace iSmileAlignerTS.Controllers
         // (OpenPicture liest das Bild zuerst aus der Session).
         private CaseFiles LoadCaseFile(long Id)
         {
-            CaseFiles pic = db.CaseFiles.AsNoTracking().FirstOrDefault(x => x.Id == Id);
-            if (pic != null)
+            CaseFiles pic = null;
+            try
             {
-                string SessionPicName = "bild_" + pic.Id.ToString("#0");
-                Session[SessionPicName] = pic;
+                pic = db.CaseFiles.AsNoTracking().FirstOrDefault(x => x.Id == Id);
+                if (pic != null)
+                {
+                    string SessionPicName = "bild_" + pic.Id.ToString("#0");
+                    Session[SessionPicName] = pic;
+                }
             }
+            catch (Exception ex)
+            {
+                MvcApplication.logMsg("Exception " + ex.HResult.ToString("X") + " " + ex.Message + " " + ObjectDumper.Dump(ex));
+            }
+                
             return pic;
         }
 
