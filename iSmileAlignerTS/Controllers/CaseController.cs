@@ -2907,7 +2907,15 @@ namespace iSmileAlignerTS.Controllers
             sCaseModel.Files = new List<CaseFilesList>();
             //
             //    IEnumerable<CaseFiles> pics  = db.CaseFiles.Where(x => x.CaseId == sCaseModel.CaseId && x.FileType == CaseFileType.AnyPhoto).OrderBy(y => y.FileNum).OrderBy(y => y.FileDate).ThenBy(z => z.isThumbNail);
-            IEnumerable<CaseFiles> pics = db.CaseFiles.Where(x => x.CaseId == sCaseModel.CaseId &&
+            //List<int> picsids =  db.CaseFiles.AsNoTracking().Where(x => x.CaseId == sCaseModel.CaseId &&
+            //    (x.FileType == CaseFileType.AnyPhoto ||
+            //    x.FileType == CaseFileType.AnyModelOK ||
+            //    x.FileType == CaseFileType.AnyModelUK ||
+            //    x.FileType == CaseFileType.AnyPDFFile ||
+            //    x.FileType == CaseFileType.PDFRechung)
+            //    ).OrderBy(y => y.FileType).ThenBy(y => y.FileNum).ThenBy(z => z.FileDate).ThenBy(z => z.Filename).ThenBy(z => z.isThumbNail).Select(x => new { x.Id }).ToList();
+
+            IEnumerable<CaseFiles> pics = db.CaseFiles.AsNoTracking().Where(x => x.CaseId == sCaseModel.CaseId &&
                 (x.FileType == CaseFileType.AnyPhoto ||
                 x.FileType == CaseFileType.AnyModelOK ||
                 x.FileType == CaseFileType.AnyModelUK ||
