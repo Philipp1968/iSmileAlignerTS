@@ -2349,14 +2349,29 @@ namespace iSmileAlignerTS.Controllers
             CaseFilesList item = null;
             string lastCmp = "";
             string newCmp = "";
-            IEnumerable<CaseFiles> pics = db.CaseFiles.Where(x => x.CaseId == model.CaseId).OrderBy(y => y.FileType).ThenBy(y => y.FileNum).ThenBy(z => z.FileDate).ThenBy(z => z.Filename).ThenBy(z => z.isThumbNail).ToList();
-            if (pics != null && pics.Count() > 0)
+            // Ids zuerst lesen, dann jeden Datensatz einzeln laden (siehe LoadCaseFile),
+            // damit die BLOB-Daten nicht in einem einzigen Resultset uebertragen werden (SQL Fehler 19).
+            List<long> picIds = db.CaseFiles.AsNoTracking()
+                .Where(x => x.CaseId == model.CaseId)
+                .OrderBy(y => y.FileType)
+                .ThenBy(y => y.FileNum)
+                .ThenBy(z => z.FileDate)
+                .ThenBy(z => z.Filename)
+                .ThenBy(z => z.isThumbNail)
+                .Select(x => x.Id)
+                .ToList();
+            if (picIds.Count > 0)
             {
-                MvcApplication.logMsg("view pics: " + pics.Count().ToString("#0"));
+                MvcApplication.logMsg("view pics: " + picIds.Count.ToString("#0"));
 
-                for (int i = 0; i < pics.Count(); i += 1)
+                for (int i = 0; i < picIds.Count; i += 1)
                 {
-                    CaseFiles pic = pics.ElementAt(i);
+                    CaseFiles pic = LoadCaseFile(picIds[i]);
+                    if (pic == null)
+                    {
+                        MvcApplication.logMsg("pics-x: " + i.ToString("#0") + " " + picIds[i].ToString("#0") + " nicht gefunden");
+                        continue;
+                    }
 
                     MvcApplication.logMsg("pics-x: " + i.ToString("#0") + " " + pic.FileNum.ToString("#0") + " " + pic.Id.ToString("#0") + " " + pic.Filename + " " + (pic.isThumbNail ? "(t)" : "(n)"));
 
@@ -2381,9 +2396,6 @@ namespace iSmileAlignerTS.Controllers
                             item = null;
                         }
                     }
-
-                    string SessionPicName = "bild_" + pic.Id.ToString("#0");
-                    Session[SessionPicName] = pic;
 
                     if (item == null)
                     {
@@ -2413,7 +2425,6 @@ namespace iSmileAlignerTS.Controllers
 
                 MvcApplication.logMsg("files items: " + model.Files.Count().ToString());
             }
-            pics = null;
 
             MvcApplication.logMsg("here 1");
 
