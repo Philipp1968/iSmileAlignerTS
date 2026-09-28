@@ -270,22 +270,24 @@ namespace iSmileAlignerTS
             [CallerFilePath] string sourceFilePath = "",
             [CallerLineNumber] int sourceLineNumber = 0)
         {
-            string path = System.Environment.GetEnvironmentVariable("temp");
-            if (path == null || path.Length == 0) path = @"c:\temp";
-            path = path + @"\__ismilealignertswebapp-" + DateTime.Now.ToString(@"yyyy-MM-dd") + ".log";
-            string m = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " " + msg + ";" + memberName + ";" + sourceLineNumber.ToString() + ";" + sourceFilePath;
-            StreamWriter sw = null;
-            try
-            {
-                sw = File.AppendText(path);
-                sw.WriteLine(m);
-                sw.Close();
-                sw.Dispose();
-                sw = null;
-            }
-            catch (Exception)
-            {
-            }
+            return;
+
+            ////string path = System.Environment.GetEnvironmentVariable("temp");
+            ////if (path == null || path.Length == 0) path = @"c:\temp";
+            ////path = path + @"\__ismilealignertswebapp-" + DateTime.Now.ToString(@"yyyy-MM-dd") + ".log";
+            ////string m = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " " + msg + ";" + memberName + ";" + sourceLineNumber.ToString() + ";" + sourceFilePath;
+            ////StreamWriter sw = null;
+            ////try
+            ////{
+            ////    sw = File.AppendText(path);
+            ////    sw.WriteLine(m);
+            ////    sw.Close();
+            ////    sw.Dispose();
+            ////    sw = null;
+            ////}
+            ////catch (Exception)
+            ////{
+            ////}
         }
 
         protected void Application_Start()
