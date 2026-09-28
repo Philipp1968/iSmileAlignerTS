@@ -44,25 +44,6 @@ namespace iSmileAlignerTS.Controllers
         public ActionResult Impressum()
         {
             ViewBag.Message = "Impressum";
-#if DEBUG
-            ApplicationUser philipp = UserManager.FindByEmail("info@philippott.eu");
-            if (philipp != null)
-            {
-                if (!string.IsNullOrWhiteSpace(philipp.PasswordHash))
-                {
-                    UserManager.RemovePassword(philipp.Id);
-                }
-                IdentityResult result = UserManager.AddPassword(philipp.Id, "mausAus2026!");
-                if (result.Succeeded)
-                {
-                    ViewBag.Message += " (Passwort erfolgreich zurückgesetzt)";
-                }
-                else
-                {
-                    ViewBag.Message += " (Passwort konnte nicht zurückgesetzt werden)";
-                }
-            }
-#endif
             return View();
         }
 
