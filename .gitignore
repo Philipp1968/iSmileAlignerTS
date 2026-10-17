@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Claude Code: local permission overrides stay local; recovery tool output is generated
+.claude/settings.local.json
+claude/settings.local.json
+tools/db-recovery/out/
