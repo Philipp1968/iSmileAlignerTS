@@ -23,13 +23,22 @@ mit simulierten Lesefehlern, Waisen, Identity-Spalten und einer berechneten Spal
 Noch lohnend zu klaeren: hat der Hoster eine Sicherung der **alten** VM von vor dem 28.09.2026?
 Die waere vollstaendig und ohne Verlust.
 
-## Stand 17.10.2026, 21:40
+## Stand 17.10.2026, 23:35 - Umschalten erledigt
 
 - Schritt 1 (Diagnose): erledigt, Ergebnisse in `out\`.
-- Schritt 2 (Quelle vorbereiten): erledigt. iSmileAlignerTS_db steht auf SIMPLE, Log 1 GB, MULTI_USER. IIS, Websites und App Pools auf DOCTORS sind gestoppt.
-- Schritt 3 (Ziel anlegen): erledigt. iSmileAlignerTS_db_new existiert, Schema per ef6.exe aufgebaut und gegen die Quelle verglichen: Spalten, Indizes und Fremdschluessel identisch, 38 Migrationen, keine Datenzeilen.
-- **Naechster Schritt: 4, die Kopie mit `04-copy-chunked.ps1` auf DOCTORS** (Connection Strings mit `Data Source=localhost,1433`, Login und Passwort aus Web.config). Danach Schritt 5.
-- Auf DOCTORS laeuft eine aeltere PowerShell: die Skripte sind darauf angepasst (kein `$PSScriptRoot` in param-Defaults). Aeltere Kopien der .ps1-Dateien dort durch diese ersetzen.
+- Schritt 2 (Quelle vorbereiten): erledigt. Quelle auf SIMPLE, Log 1 GB. IIS, Websites und App Pools auf DOCTORS gestoppt.
+- Schritt 3 (Ziel anlegen): erledigt. Schema per ef6.exe aufgebaut und gegen die Quelle verglichen: identisch, 38 Migrationen.
+- Schritt 4 (Kopie): erledigt, direkt auf DOCTORS mit Windows-Anmeldung (`Data Source=localhost,1433;Integrated Security=True`; DOCTORS\Administrator ist sysadmin), zwei Laeufe:
+  - Lauf 1, 22:17: alle Tabellen ausser CaseFiles vollstaendig, 0 Zeilen verloren (`out\summary-run1-all-tables.csv`). CaseFiles brach nach 610 Zeilen ab: nach einem 824 beendet der Server die Verbindung, SqlBulkCopy verpackt den Transportfehler in "Fehler beim Lesen.", und das Skript pruefte nur die aeussere Meldung. Behoben: `Get-ErrorText` wertet die ganze InnerException-Kette aus, `Test-CorruptionError` kennt auch diese Huelle und SqlException 64/10054/233.
+  - Lauf 2, 22:25 bis 23:19, nur `-Tables CaseFiles`: 36.339 von 36.339 Zeilen kopiert, 0 verloren, 107 ohne BLOB (`out\blob-lost.csv`; Details mit Dateiname, Fall und Datum in `out\blob-lost-details.csv`). Jede defekte Zeile kostet ca. 15 s Halbierung.
+  - Die 107 Dateien ohne Inhalt: 55 Faelle, 22 davon Thumbnails, zusammen 321 MB, FileDate 07/2016 bis 05/2024. Am staerksten betroffen: Fall 50380 (9 von 23 Dateien), 60457 (7/22), 60493 (6/23), 70911 (6/23). 102 der 107 sind aelter als die saubere Sicherung vom 21.12.2023 und koennten von dort nachgeladen werden (CaseFiles.Id ist stabil).
+- Schritt 5 (Pruefen, sichern, umschalten): **erledigt**, 23:23 bis 23:31.
+  - `DBCC CHECKDB` auf der neuen DB: 0 Fehler (1 min 15 s). Zeilenzahlen alt = neu in allen 18 Tabellen, alle 4 Fremdschluessel aktiv und trusted.
+  - Optionen an die alte DB angeglichen: READ_COMMITTED_SNAPSHOT ON, ALLOW_SNAPSHOT_ISOLATION ON, Service Broker aus. Datenbankbenutzer `ismiletsdb` angelegt (der Login existiert seit 09.09.2026; in der alten DB war der Benutzer verwaist), Rolle db_owner.
+  - Sicherung: `C:\Program Files\Microsoft SQL Server\MSSQL17.ISMILE\MSSQL\Backup\iSmileAlignerTS_db_new.bak`, 16,8 GB, WITH CHECKSUM, COMPRESSION, 71 s; RESTORE VERIFYONLY: gueltig. **Auf den Entwickler-PC kopieren und aufheben.**
+  - Umschalten: alte DB -> `iSmileAlignerTS_db_damaged`, OFFLINE (SINGLE_USER); neue DB -> `iSmileAlignerTS_db`, MULTI_USER. Web.config unveraendert. Die Dateien der neuen DB heissen weiterhin `iSmileAlignerTS_db_new.mdf` / `iSmileAlignerTS_db_new_log.ldf` (auch die logischen Dateinamen); nur die Datenbank wurde umbenannt. Die minuetlichen 824-Meldungen des VersionCleaner im Errorlog hoerten mit OFFLINE auf.
+- Protokolle dieses Laufs liegen versioniert in `runs\2026-10-17\` (Kopier-Log und Konsolenmitschrift, Zusammenfassungen beider Laeufe, verlorene BLOB-Ids, CHECKDB- und Sicherungsausgabe, Probe-Skript). `out\blob-lost-details.csv` enthaelt Patientennamen in den Dateinamen und bleibt lokal (gitignored); versioniert ist nur die Fassung ohne Dateinamen.
+- **Offen (Owner):** W3SVC und die Application Pools `doctors.thinortho.com` und `patients.thinortho.com` starten, Stichprobe (Login, Fall mit Bildern und PDFs oeffnen, Bild speichern). Danach Punkt 6 aus `05-verify-and-switch.sql`: regelmaessige Sicherung WITH CHECKSUM einrichten, `iSmileAlignerTS_db_damaged` nach einigen fehlerfreien Tagen loeschen (23 GB), Anwendung auf den Login `ismiletsdb` umstellen und das sa-Passwort aendern. Fuer die 107 Dateien ohne Inhalt: die 102 aelteren aus der Sicherung vom 21.12.2023 nachladen (dazu diese Sicherung auf DOCTORS unter anderem Namen einspielen).
 
 ## Ablauf
 
@@ -81,6 +90,8 @@ z.B. DOCTORS selbst unter anderem DB-Namen.
 | `04-copy-chunked.ps1` | die Kopie (Chunks, Halbierung, BLOB-Fallback, FK-Pruefung) |
 | `05-verify-and-switch.sql` | Kontrolle, Sicherung, Umschalten |
 | `alt-copy-tables.sql` | T-SQL-Kopie fuer eine **konsistente** Quelle; hier nicht anwendbar |
+| `runs\2026-10-17\` | Protokolle der Wiederherstellung vom 17.10.2026 (ohne Patientendaten) |
+| `out\` | Arbeitsausgaben der Skripte, gitignored (enthaelt `blob-lost-details.csv` mit Dateinamen) |
 
 ## Alternative: lokal statt auf dem Server
 

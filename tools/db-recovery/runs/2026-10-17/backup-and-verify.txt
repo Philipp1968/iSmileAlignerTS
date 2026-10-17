@@ -1,0 +1,31 @@
+start 2026-10-17 23:28:20
+Der Datenbankkontext wurde in "iSmileAlignerTS_db_new" ge„ndert.
+db_user|mapped_login|role_name
+-------|------------|---------
+ismiletsdb|ismiletsdb|db_owner
+backup start 23:28:20
+5 Prozent verarbeitet.
+10 Prozent verarbeitet.
+15 Prozent verarbeitet.
+20 Prozent verarbeitet.
+25 Prozent verarbeitet.
+30 Prozent verarbeitet.
+35 Prozent verarbeitet.
+40 Prozent verarbeitet.
+45 Prozent verarbeitet.
+50 Prozent verarbeitet.
+55 Prozent verarbeitet.
+60 Prozent verarbeitet.
+65 Prozent verarbeitet.
+70 Prozent verarbeitet.
+75 Prozent verarbeitet.
+80 Prozent verarbeitet.
+85 Prozent verarbeitet.
+90 Prozent verarbeitet.
+95 Prozent verarbeitet.
+100 Prozent verarbeitet.
+2784480 Seiten wurden fr die iSmileAlignerTS_db_new-Datenbank, Datei "iSmileAlignerTS_db_new" fr Datei 1, verarbeitet.
+1 Seiten wurden fr die iSmileAlignerTS_db_new-Datenbank, Datei "iSmileAlignerTS_db_new_log" fr Datei 1, verarbeitet.
+BACKUP DATABASE hat erfolgreich 2784481 Seiten in 70.899 Sekunden verarbeitet (306.827 MB/s).
+Der Sicherungssatz fr die Datei 1 ist gltig.
+exit 0 at 23:30:01

@@ -95,9 +95,27 @@ function Invoke-Table($cs, $sql, $params) {
   } finally { $c.Dispose() }
 }
 
-# Lesefehler durch Korruption (Quelle) von echten Fehlern (Ziel, Schema) unterscheiden
+# Alle Meldungen einer Ausnahmekette (PowerShell -> .NET -> InnerException ...) als ein Text.
+# SqlBulkCopy verpackt einen Lesefehler der Quelle in "Fehler beim Lesen." / "An error occurred
+# while reading."; der eigentliche 824- oder Transportfehler steht erst in der InnerException.
+function Get-ErrorText($ex) {
+  $parts = New-Object System.Collections.Generic.List[string]
+  $e = $ex
+  while ($e -ne $null) {
+    $t = [string]$e.Message
+    if ($e -is [System.Data.SqlClient.SqlException]) { $t = ('SqlException {0}: {1}' -f $e.Number, $t) }
+    $parts.Add($t)
+    $e = $e.InnerException
+  }
+  return ($parts -join ' <- ')
+}
+
+# Lesefehler durch Korruption (Quelle) von echten Fehlern (Ziel, Schema) unterscheiden.
+# Nach einem 824 beendet der Server die Verbindung; der Client sieht dann oft nur noch einen
+# Transportfehler (SqlException 64 / 10054 / 233, "Netzwerkname nicht mehr verfuegbar").
+# Immer mit dem Text von Get-ErrorText aufrufen, nicht nur mit $_.Exception.Message.
 function Test-CorruptionError($msg) {
-  return ($msg -match '824|823|checksum|Pr.fsumme|consisten|konsisten|transport|bertragungsebene|torn page|zerrissen|BUF_IOERR|SIMULATED')
+  return ($msg -match '824|823|829|checksum|Pr.fsumme|consisten|konsisten|transport|bertragungsebene|torn page|zerrissen|BUF_IOERR|SIMULATED|Fehler beim Lesen|while reading|Netzwerkname|network name|SqlException (64|10054|233):')
 }
 
 function Get-NullCast($col) {
@@ -261,7 +279,7 @@ foreach ($row in $srcTables.Rows) {
           if ($n -eq 0) { $step = [Math]::Min([long]($step * 2), [long]1000000) } else { $step = $initial }
           if ($tbl.has_blob -or ($copied % 20000) -lt $n) { Write-Host ("   {0}: {1} Zeilen, Id <= {2}" -f $name, $copied, $lo) }
         } catch {
-          $msg = $_.Exception.Message
+          $msg = Get-ErrorText $_.Exception
           if (-not (Test-CorruptionError $msg)) { throw }
           if ($step -gt 1) {
             $step = [long][Math]::Ceiling($step / 2)
@@ -287,7 +305,7 @@ foreach ($row in $srcTables.Rows) {
       $copied = Copy-Range $tbl $null $null $true
     }
   } catch {
-    $status = 'FEHLER: ' + $_.Exception.Message
+    $status = 'FEHLER: ' + (Get-ErrorText $_.Exception)
     Log "$name : $status"
   }
 
