@@ -36,7 +36,7 @@ namespace iSmileAlignerTS.Controllers
             if (aCase == null) return "";
             string result = "";
 
-            result= "intern ID:" + aCase.Id.ToString("#0") + Environment.NewLine
+            result = "intern ID:" + aCase.Id.ToString("#0") + Environment.NewLine
                 + "intern Fallnummer:" + aCase.CaseNumber.ToString("#0") + Environment.NewLine
                 + "Fall:" + s(aCase.CaseNumberStr) + Environment.NewLine
                 + Environment.NewLine
@@ -67,7 +67,7 @@ namespace iSmileAlignerTS.Controllers
                         + (aCase.Tooth25 ? "X" : "_")
                         + (aCase.Tooth26 ? "X" : "_")
                         + (aCase.Tooth27 ? "X" : "_")
-                        + (aCase.Tooth28 ? "X" : "_") 
+                        + (aCase.Tooth28 ? "X" : "_")
                         + Environment.NewLine
                 + "UK:" + (aCase.Tooth48 ? "X" : "_")
                         + (aCase.Tooth47 ? "X" : "_")
@@ -167,7 +167,7 @@ namespace iSmileAlignerTS.Controllers
             d.CaseNumber = s.CaseNumber;
             d.DoctorId = s.DoctorId;
             d.CaseState = s.CaseState;
-            
+
             d.Accepted = s.Accepted;
             d.AcceptedDate = s.AcceptedDate;
 
@@ -317,8 +317,8 @@ namespace iSmileAlignerTS.Controllers
         //
         private void CopyCase(Cases d, CaseViewModel s)
         {
-//            d.CaseNumber = s.CaseNumber;
-//            d.DoctorId = s.DoctorId;
+            //            d.CaseNumber = s.CaseNumber;
+            //            d.DoctorId = s.DoctorId;
             d.CaseState = s.CaseState;
 
             d.Accepted = s.Accepted;
@@ -456,7 +456,7 @@ namespace iSmileAlignerTS.Controllers
             d.BestelltWieAngegebenKommentar = s.BestelltWieAngegebenKommentar;
         }
 
-        
+
         // GET: Case Index List
         [Authorize]
         public async Task<ActionResult> Index()
@@ -1134,8 +1134,8 @@ namespace iSmileAlignerTS.Controllers
             }
             g.Dispose();
             smaller.Dispose();
-//            smallerStream.Close();
-//            smallerStream.Dispose();
+            //            smallerStream.Close();
+            //            smallerStream.Dispose();
             smallerStream = null;
             picture.Dispose();
 
@@ -1399,7 +1399,7 @@ namespace iSmileAlignerTS.Controllers
             {
                 MvcApplication.logMsg("Exception " + ex.HResult.ToString("X") + " " + ex.Message + " " + ObjectDumper.Dump(ex));
             }
-                
+
             return pic;
         }
 
@@ -1641,11 +1641,11 @@ namespace iSmileAlignerTS.Controllers
             ///// MOdelle laden und anzeigen
             CaseViewModel model = new CaseViewModel();
 
-            
+
             return View(model);
         }
 
-        
+
         public async Task<int> AddCartAsync(CaseViewModel aCase, int warenumber, decimal amount)
         {
             int result = 0;
@@ -1658,7 +1658,7 @@ namespace iSmileAlignerTS.Controllers
 
             if (CartNumber == 0)
             {
-                CartNumber = (int)NewNumber(db, "CartNummer", "201000", null); 
+                CartNumber = (int)NewNumber(db, "CartNummer", "201000", null);
             }
 
             MvcApplication.logMsg("addcart " + aCase.CaseNumber.ToString("#0") + " " + CartNumber.ToString("#0") + " " + warenumber.ToString("#0") + " " + amount.ToString("#0.00"));
@@ -2107,7 +2107,7 @@ namespace iSmileAlignerTS.Controllers
                 await UpdatePicture(model.OcclAnimationGifBin, CaseFileType.AnimationGifOccl, model.CaseId);
             }
 
-            
+
             /*
             System.Linq.IQueryable<ApplicationUser> adminusers = db.Users.Where(x => x.isAdmin == true);
             if (Environment.MachineName.ToLower() != "apps" && adminusers != null)
@@ -2791,7 +2791,7 @@ namespace iSmileAlignerTS.Controllers
             return RedirectToAction("Index", "Case");
         }
 
-        
+
         // GET: Case
         // [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
         [Authorize]
@@ -2815,7 +2815,7 @@ namespace iSmileAlignerTS.Controllers
             // id laden
             //
             CaseViewModel sCaseModel = null;
-            
+
             // bisherige infos löschen
             //
             Session["caseView"] = sCaseModel;
@@ -3047,14 +3047,14 @@ namespace iSmileAlignerTS.Controllers
             }
             msgs = null;
 
-            
+
             // Artikel laden
             //
             WARESSHOP showShop = WARESSHOP.all;
             if (shopKind == SHOPART.DoctorShop) showShop = WARESSHOP.doctors;
             if (shopKind == SHOPART.PatientShop) showShop = WARESSHOP.patients;
             sCaseModel.isDoctorShop = false;
-            if (shopKind == SHOPART.DoctorShop) sCaseModel.isDoctorShop = true; 
+            if (shopKind == SHOPART.DoctorShop) sCaseModel.isDoctorShop = true;
             sCaseModel.Wares = new List<Wares>();
             IEnumerable<Wares> wares = null;
             if (user.isAdmin)
@@ -3685,7 +3685,7 @@ namespace iSmileAlignerTS.Controllers
             if (canvasShowButton != null && canvasShowButton != "")
             {
                 sessionCase.ShowCanvasModels = true;
-                Session["caseView"] = sessionCase; 
+                Session["caseView"] = sessionCase;
                 model = sessionCase;
                 ModelState.Clear();
                 return View(model);
@@ -3758,7 +3758,7 @@ namespace iSmileAlignerTS.Controllers
                 }
             }
             tr = null;
-            
+
             if (result < 0)
             {
                 // fehler anzeigen
@@ -3772,7 +3772,7 @@ namespace iSmileAlignerTS.Controllers
             dbcase = db.Cases.Find(sessionCase.CaseId);
             sessionCase.RowVersion = dbcase.RowVersion;
             sessionCase.CaseNumberStr = dbcase.CaseNumberStr;
-            Session["caseView"] = sessionCase; 
+            Session["caseView"] = sessionCase;
 
             string body = Case2Emailbody(dbcase);
             dbcase = null;
@@ -3972,15 +3972,15 @@ namespace iSmileAlignerTS.Controllers
 
             dbcase = null;
 
-//            Session["caseView"] = null;
-//            Session.Clear();
-//            return RedirectToAction("Index", "Case");
+            //            Session["caseView"] = null;
+            //            Session.Clear();
+            //            return RedirectToAction("Index", "Case");
 
             return RedirectToAction("EditCase", "Case", new { Id = sessionCase.CaseNumber.ToString("#0") });
 
-//            model = sessionCase;
-//            ModelState.Clear();
-//            return View(model);
+            //            model = sessionCase;
+            //            ModelState.Clear();
+            //            return View(model);
         }
 
 
@@ -4242,7 +4242,5 @@ namespace iSmileAlignerTS.Controllers
 
             return View(sCaseModel);
         }
-    
     }
-
 }
