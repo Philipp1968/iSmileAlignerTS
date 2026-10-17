@@ -21,6 +21,10 @@ MSBuild lives under Visual Studio (`vswhere -find MSBuild\**\Bin\MSBuild.exe`). 
   Connection string `DefaultConnection` in `iSmileAlignerTS/Web.config` (a sysadmin login).
   On DOCTORS itself use `Data Source=localhost,1433` so bulk traffic stays on loopback.
 - Database `iSmileAlignerTS_db`, about 22 GB, almost all of it `CaseFiles.Content` blobs.
+- Backups: SQL Server Agent job `iSmile DB - Sicherung` (daily 02:00: CHECKDB, full backup WITH CHECKSUM plus
+  RESTORE VERIFYONLY, keeps the newest N full backups). Installed and re-configured with `tools/db-backup/Install-BackupJobs.ps1`;
+  design, disk math and restore commands in `tools/db-backup/README.md`. The hoster takes a non-copy-only VSS
+  snapshot of all databases nightly around 22:30, which resets the differential base, so no differential backups.
 - The dev PC only has LocalDB and SQL Express 2016 (10 GB cap): they can neither restore nor hold the
   production database. Do not plan work that needs the production data locally.
 
@@ -54,7 +58,7 @@ production name. Runbook, timings and full status: `tools/db-recovery/README.md`
 **Open after the switch**
 
 - IIS, websites and app pools on DOCTORS were left stopped; the owner starts them and smoke-tests the app.
-- Set up regular backups `WITH CHECKSUM, COMPRESSION`; keep RECOVERY SIMPLE unless log backups are scheduled.
+- Regular backups: done 18.10.2026, see the Backups bullet above. Keep RECOVERY SIMPLE unless log backups are scheduled.
 - Switch the app to the `ismiletsdb` login (owner sets its password), then rotate the `sa` password.
 
 The copy tool `tools/db-recovery/04-copy-chunked.ps1` reads rows by primary-key ranges (never touching PFS pages),
